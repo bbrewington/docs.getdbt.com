@@ -348,6 +348,18 @@ If a user sets some key-value pair with value as `'{model}'`, internally this `'
 - For example, if the model the user is running is `stg_orders`, `{model}` will be replaced with `stg_orders` in runtime.
 - If no `query_band` is set by the user, the default query_band used will be: ```org=teradata-internal-telem;appname=dbt;```
 
+## Unit Testing
+* Unit testing is supported in dbt-teradata, allowing users to write and execute unit tests using the dbt test command.
+  * For detailed guidance, refer to the dbt documentation.
+
+* QVCI must be enabled in the database to run unit tests for views.
+  * Additional details on enabling QVCI can be found in the General section.
+  * Without QVCI enabled, unit test support for views will be limited.
+  * Users might encounter the following database error when testing views without QVCI enabled:
+    ```
+    * [Teradata Database] [Error 3706] Syntax error: Data Type "N" does not match a Defined Type name.
+    ```
+
 ## valid_history incremental materialization strategy
 _This is available in early access_
     
@@ -361,26 +373,27 @@ In temporal databases, valid time is crucial for applications like historical re
           unique_key='id',
           on_schema_change='fail',
           incremental_strategy='valid_history',
-          valid_from='valid_from_column',
-          history_column_in_target='history_period_column'
+          valid_period='valid_period_col',
+          use_valid_to_time='no',
   )
   }}
   ```
 
 The `valid_history` incremental strategy requires the following parameters:
-* `valid_from` &mdash; Column in the source table of **timestamp** datatype indicating when each record became valid.
-* `history_column_in_target` &mdash; Column in the target table of **period** datatype that tracks history.
+* `unique_key`: The primary key of the model (excluding the valid time components), specified as a column name or list of column names.
+* `valid_period`: Name of the model column indicating the period for which the record is considered to be valid. The datatype must be `PERIOD(DATE)` or `PERIOD(TIMESTAMP)`. 
+* `use_valid_to_time`: Wether the end bound value of the valid period in the input is considered by the strategy when building the valid timeline. Use 'no' if you consider your record to be valid until changed (and supply any value greater to the begin bound for the end bound of the period - a typical convention is `9999-12-31` of ``9999-12-31 23:59:59.999999`). Use 'yes' if you know until when the record is valid (typically this is a correction in the history timeline).
 
 The valid_history strategy in dbt-teradata involves several critical steps to ensure the integrity and accuracy of historical data management:
 * Remove duplicates and conflicting values from the source data:
   * This step ensures that the data is clean and ready for further processing by eliminating any redundant or conflicting records.
-  * The process of removing duplicates and conflicting values from the source data involves using a ranking mechanism to ensure that only the highest-priority records are retained. This is accomplished using the SQL RANK() function.
-* Identify and adjust overlapping time slices:
-  * Overlapping time periods in the data are detected and corrected to maintain a consistent and non-overlapping timeline.
-* Manage records needing to be overwritten or split based on the source and target data:
+  * The process of removing primary key duplicates (ie. two or more records with the same value for the `unique_key` and BEGIN() bond of the `valid_period` fields) in the dataset produced by the model. If such duplicates exist, the row with the lowest value is retained for all non-primary-key fields (in the order specified in the model) is retained. Full-row duplicates are always de-duplicated.
+* Identify and adjust overlapping time slices (if use_valid_to_time='yes):
+  * Overlapping time periods in the data are corrected to maintain a consistent and non-overlapping timeline. To do so, the valid period end bound of a record is adjusted to meet the begin bound of the next record with the same `unique_key` value and overlapping `valid_period` value if any.
+* Manage records needing to be adjusted, deleted or split based on the source and target data:
   * This involves handling scenarios where records in the source data overlap with or need to replace records in the target data, ensuring that the historical timeline remains accurate.
-* Utilize the TD_NORMALIZE_MEET function to compact history:
-  * This function helps to normalize and compact the history by merging adjacent time periods, improving the efficiency and performance of the database.
+* Compact history:
+  * Normalize and compact the history by merging records of adjacent time periods withe same value, optimizing database storage and performance. We use the function TD_NORMALIZE_MEET for this purpose.
 * Delete existing overlapping records from the target table:
   * Before inserting new or updated records, any existing records in the target table that overlap with the new data are removed to prevent conflicts.
 * Insert the processed data into the target table:
@@ -416,9 +429,7 @@ These steps collectively ensure that the valid_history strategy effectively mana
   ```
   
 
-:::info
-The target table must already exist before running the model. Ensure the target table is created and properly structured with the necessary columns, including a column that tracks the history with period datatype, before running a dbt model.
-:::
+
 
 ## Common Teradata-specific tasks
 * *collect statistics* - when a table is created or modified significantly, there might be a need to tell Teradata to collect statistics for the optimizer. It can be done using `COLLECT STATISTICS` command. You can perform this step using dbt's `post-hooks`, e.g.:
