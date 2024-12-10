@@ -348,7 +348,7 @@ If a user sets some key-value pair with value as `'{model}'`, internally this `'
 - For example, if the model the user is running is `stg_orders`, `{model}` will be replaced with `stg_orders` in runtime.
 - If no `query_band` is set by the user, the default query_band used will be: ```org=teradata-internal-telem;appname=dbt;```
 
-## Unit Testing
+## Unit testing
 * Unit testing is supported in dbt-teradata, allowing users to write and execute unit tests using the dbt test command.
   * For detailed guidance, refer to the dbt documentation.
 
