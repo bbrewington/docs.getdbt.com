@@ -30,7 +30,7 @@ To install a Python virtual environment, navigate to your project directory and 
 
 <Tabs>
   <TabItem value="Unix/macOS" label="Unix/macOS">
-    1. Create your virtual environment
+    1. Create your virtual environment:
 
     ```shell
     python3 -m venv env
@@ -40,7 +40,17 @@ To install a Python virtual environment, navigate to your project directory and 
 
     ```shell
     source env/bin/activate
+    ```
+
+    3. Verify Python Path:
+
+    ```shell
     which python
+    ```
+
+    4. Run Python:
+
+    ```shell
     env/bin/python
     ```
   </TabItem>
@@ -56,7 +66,17 @@ To install a Python virtual environment, navigate to your project directory and 
 
     ```shell
     env\Scripts\activate
+    ```
+
+    3. Verify Python Path:
+
+    ```shell
     where python
+    ```
+
+    4. Run Python:
+
+    ```shell
     env\Scripts\python
     ```
   </TabItem>
