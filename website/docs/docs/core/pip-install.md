@@ -227,10 +227,11 @@ dbt --version
 1. Activate your virtual environment: 
 
 ```shell
-py -m pip install --pre dbt-core dbt-adapter-name
-.venv\Scripts\activate
-dbt --version
-```
+env\Scripts\activate
+where python
+env\Scripts\python
+  
+  ```
 2. Install the prerelease using the following command:
 
 ```shell
