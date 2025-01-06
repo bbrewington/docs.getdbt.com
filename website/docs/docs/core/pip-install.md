@@ -161,7 +161,7 @@ Or, better yet, just install the package(s) you need!
 
 A prerelease adapter is a version released before the final, stable version. It allows users to test new features, provide feedback, and get early access to upcoming functionality &mdash; ensuring your system will be ready for the final release.
 
-Using a prerelease of an adapter has many benefits such as granting you early access to new features and improvements ahead of the stable release. Innovation opportunities &mdash; leverage new features to improve your work and stay competitive. As well as compatibility testing, allowing you to test the adapter in your environment to catch integration issues early, ensuring your system will be ready for the final release. 
+Using a prerelease of an adapter has many benefits such as granting you early access to new features and improvements ahead of the stable release. As well as compatibility testing, allowing you to test the adapter in your environment to catch integration issues early, ensuring your system will be ready for the final release. 
 
 Prereleases also have some drawbacks such as performance issues as they may not be fully optimized, potentially resulting in slower performance or inefficiency. Additionally, frequent updates and patches during the prerelease phase may require extra time and effort to maintain.
 
