@@ -191,7 +191,7 @@ dbt --version
 ```
 Note, this will also install any pre-releases of all dependencies.
 
-#### Install prereleases of dbt-adapters on different operating systems 
+#### Activate your virtual environment 
 
 To install or use packages within your virtual environment:
 
