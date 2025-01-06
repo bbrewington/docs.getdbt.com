@@ -197,7 +197,7 @@ To install or use packages within your virtual environment:
 
 - Activate the virtual environment to add its specific Python and `pip` executables to your shell’s PATH. This ensures you use the environment’s isolated setup. 
 
-For more information, refer to [Create and use virtual environments](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments) and [Create a Python virtual environment](/docs/core/create-a-python-virtual-environment).
+For more information, refer to [Create and use virtual environments](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments).
 
 Select your operating system and run the following command to activate it:
 
