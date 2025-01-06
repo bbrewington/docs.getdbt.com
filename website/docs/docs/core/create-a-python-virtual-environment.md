@@ -26,7 +26,7 @@ Users who want to run dbt locally, for example in [dbt Core](/docs/core/installa
 
 Depending on the operating system you use, you'll need to execute specific steps to set up a virtual environment. 
 
-To install a Python virtual environment, navigate to your project directory and execute the command. This will generate a new virtual environment within a local folder which you can name it anything you want.  [Our convention](https://github.com/dbt-labs/dbt-core/blob/main/CONTRIBUTING.md#virtual-environments) has been to name it `env` or `env-anything-you-want`
+To install a Python virtual environment, navigate to your project directory and execute the command. This will generate a new virtual environment within a local folder that you can name anything.  [Our convention](https://github.com/dbt-labs/dbt-core/blob/main/CONTRIBUTING.md#virtual-environments) has been to name it `env` or `env-anything-you-want`
 
 <Tabs>
   <TabItem value="Unix/macOS" label="Unix/macOS">
