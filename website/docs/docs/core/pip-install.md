@@ -249,7 +249,7 @@ dbt --version
 
 ### Install prereleases of dbt-adapters
 
-dbt-adapters are only compatible with dbt Core 1.8+. If you are on dbt Core v1.7 or below, follow the steps to upgrade to v1.8+ to install prereleases of dbt-adapters.
+dbt-adapters are only compatible with dbt Core 1.8 and higher. If you're on dbt Core v1.7 or lower, follow these steps to upgrade to v1.8 or higher to install prereleases of dbt-adapters.
 
 ```shell
 python -m pip uninstall -y dbt-adapters
