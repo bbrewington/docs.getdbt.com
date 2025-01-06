@@ -163,7 +163,7 @@ A prerelease adapter is a version released before the final, stable version. It 
 
 Using a prerelease of an adapter has many benefits such as granting you early access to new features and improvements ahead of the stable release. As well as compatibility testing, allowing you to test the adapter in your environment to catch integration issues early, ensuring your system will be ready for the final release. 
 
-Prereleases also have some drawbacks such as performance issues as they may not be fully optimized, potentially resulting in slower performance or inefficiency. Additionally, frequent updates and patches during the prerelease phase may require extra time and effort to maintain.
+Note that using a prerelease version before the final, stable version means the version isn't fully optimized and can result in unexpected behavior. Additionally, frequent updates and patches during the prerelease phase may require extra time and effort to maintain.
 
 To install prerelease versions of dbt Core and your adapter, use this command:
 
