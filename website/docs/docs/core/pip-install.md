@@ -252,7 +252,7 @@ dbt-adapters are only compatible with dbt Core 1.8 and higher. If you're on dbt 
 
 ```shell
 python -m pip uninstall -y dbt-adapters
-python -m pip install --upgrade dbt-core dbt-common dbt-adapters
+python -m pip install --upgrade --pre dbt-core dbt-common dbt-adapters
 dbt --version
 ```
 
