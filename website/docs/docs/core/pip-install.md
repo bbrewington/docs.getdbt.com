@@ -182,11 +182,11 @@ We recommend you install prereleases in a [virtual Python environment](https://p
 
 ```shell
 dbt --version
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install --pre dbt-core dbt-adapter-name
-source venv/bin/activate
+source .venv/bin/activate
 dbt --version
 ```
 Note, this will also install any pre-releases of all dependencies.
