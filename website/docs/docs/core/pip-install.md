@@ -157,7 +157,7 @@ Or, better yet, just install the package(s) you need!
 
 <VersionBlock firstVersion="1.8">
 
-### Install prereleases of dbt-adapters
+### Installing prereleases
 
 A prerelease adapter is a version released before the final, stable version. It allows users to test new features, provide feedback, and get early access to upcoming functionality &mdash; ensuring your system will be ready for the final release.
 
