@@ -169,13 +169,15 @@ To install prerelease versions of dbt Core and your adapter, use this command (r
 
 ```shell
 python3 -m pip install --pre dbt-core dbt-adapter-name
-````
+```
 
 For example, if you’re using Snowflake, you would use the command:
 
 
 ```shell
 python3 -m pip install --pre dbt-core dbt-snowflake
+
+```
 
 We recommend you install prereleases in a [virtual Python environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). For example, to install a prerelease in a `POSIX bash`/`zsh` virtual Python environment, use the following commands:
 
@@ -209,7 +211,7 @@ source .venv/bin/activate
 which python
 .venv/bin/python
   
-  ```
+```
   2. Install the prerelease using the following command:
 
 
@@ -229,7 +231,8 @@ dbt --version
 .venv\Scripts\activate
 where python
 .venv\Scripts\python
-  ```
+```
+
 2. Install the prerelease using the following command:
 
 ```shell
