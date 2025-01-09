@@ -338,11 +338,11 @@ For dbt limitations, these dbt features are not supported:
 - [Copy grants configuration](/reference/resource-configs/snowflake-configs#copying-grants)
 
 ### Troubleshooting Dynamic Tables
-- If your dynamic table model is unable to rerun after the initial execution and fails with this error message:
+- If your dynamic table model fails to rerun with the following error message after the initial execution:
   ```sql
   SnowflakeDynamicTableConfig.__init__() missing 6 required positional arguments: 'name', 'schema_name', 'database_name', 'query', 'target_lag', and 'snowflake_warehouse'
   ```
-  Check to ensure that `QUOTED_IDENTIFIERS_IGNORE_CASE` on your account is set to FALSE. 
+  Ensure that `QUOTED_IDENTIFIERS_IGNORE_CASE` on your account is set to `FALSE`. 
 
 ## Temporary tables
 
