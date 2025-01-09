@@ -48,4 +48,4 @@ Whether you use a Git integration that natively connects with dbt Cloud or prefe
     body="Learn which Git providers support CI"
     link="/docs/deploy/continuous-integration#git-providers-who-support-ci"
     icon="dbt-bit"/>
-
+</div>
