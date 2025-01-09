@@ -227,10 +227,9 @@ dbt --version
 1. Activate your virtual environment: 
 
 ```shell
-env\Scripts\activate
+.venv\Scripts\activate
 where python
-env\Scripts\python
-  
+.venv\Scripts\python
   ```
 2. Install the prerelease using the following command:
 
