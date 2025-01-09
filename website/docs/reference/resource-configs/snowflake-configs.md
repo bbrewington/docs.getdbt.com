@@ -337,7 +337,7 @@ For dbt limitations, these dbt features are not supported:
 - [Model contracts](/docs/collaborate/govern/model-contracts)
 - [Copy grants configuration](/reference/resource-configs/snowflake-configs#copying-grants)
 
-### Troubleshooting Dynamic Tables
+### Troubleshooting dynamic tables
 - If your dynamic table model fails to rerun with the following error message after the initial execution:
   ```sql
   SnowflakeDynamicTableConfig.__init__() missing 6 required positional arguments: 'name', 'schema_name', 'database_name', 'query', 'target_lag', and 'snowflake_warehouse'
