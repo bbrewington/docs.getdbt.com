@@ -337,6 +337,13 @@ For dbt limitations, these dbt features are not supported:
 - [Model contracts](/docs/collaborate/govern/model-contracts)
 - [Copy grants configuration](/reference/resource-configs/snowflake-configs#copying-grants)
 
+### Troubleshooting Dynamic Tables
+- If your dynamic table model is unable to rerun after the initial execution and fails with this error message:
+  ```sql
+  SnowflakeDynamicTableConfig.__init__() missing 6 required positional arguments: 'name', 'schema_name', 'database_name', 'query', 'target_lag', and 'snowflake_warehouse'
+  ```
+  Check to ensure that `QUOTED_IDENTIFIERS_IGNORE_CASE` on your account is set to FALSE. 
+
 ## Temporary tables
 
 Incremental table merges for Snowflake prefer to utilize a `view` rather than a `temporary table`. The reasoning is to avoid the database write step that a temporary table would initiate and save compile time. 
