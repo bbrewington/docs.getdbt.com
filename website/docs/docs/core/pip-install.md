@@ -176,7 +176,6 @@ For example, if you’re using Snowflake, you would use the command:
 
 ```shell
 python3 -m pip install --pre dbt-core dbt-snowflake
-````
 
 We recommend you install prereleases in a [virtual Python environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). For example, to install a prerelease in a `POSIX bash`/`zsh` virtual Python environment, use the following commands:
 
