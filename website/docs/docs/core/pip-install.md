@@ -208,7 +208,7 @@ Select your operating system and run the following command to activate it:
 ```shell
 source .venv/bin/activate
 which python
-venv/bin/python
+.venv/bin/python
   
   ```
   2. Install the prerelease using the following command:
