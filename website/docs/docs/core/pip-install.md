@@ -246,7 +246,7 @@ dbt --version
 
 <VersionBlock lastVersion="1.7">
 
-### Install prereleases of dbt-adapters
+### Install prereleases
 
 dbt-adapters are only compatible with dbt Core 1.8 and higher. If you're on dbt Core v1.7 or lower, follow these steps to upgrade to v1.8 or higher to install prereleases of dbt-adapters.
 
