@@ -49,7 +49,7 @@ You can also check out the free [dbt Fundamentals course](https://learn.getdbt.c
    dbt Cloud provides a secret token that you can use to [check for the authenticity of a webhook](#validate-a-webhook). It’s strongly recommended that you perform this check on your server to protect yourself from fake (spoofed) requests.
 
 :::info
-Note that dbt Cloud automatically deactivates a webhook after 5 consecutive failed attempts to send events to your endpoint.
+Note that dbt Cloud automatically deactivates a webhook after 5 consecutive failed attempts to send events to your endpoint. To re-activate the webhook, locate it in in the webhooks list and click the reactivate button to enable it and continue receiving events.
 :::
 
 To find the appropriate dbt Cloud access URL for your region and plan, refer to [Regions & IP addresses](/docs/cloud/about-cloud/access-regions-ip-addresses).
