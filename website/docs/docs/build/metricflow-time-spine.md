@@ -34,7 +34,7 @@ To see the generated SQL for the metric and dimension types that use time spine 
 - If you're looking to specify the grain of a time dimension so that MetricFlow can transform the underlying column to the required granularity, refer to the [Time granularity documentation](/docs/build/dimensions?dimension=time_gran)
 
 :::tip
-- If you previously used a `metricflow_time_spine.sql` model, you can delete it after configuring the `time_spine` property in YAML. The Semantic Layer will automatically recognize the new configuration. No additional `.yml` files are needed. 
+- If you previously used a `metricflow_time_spine.sql` model, you can delete it after configuring the `time_spine` property in YAML. The Semantic Layer automatically recognizes the new configuration. No additional `.yml` files are needed. 
 - You can also configure MetricFlow to use any date dimension or time spine table already in your project by updating the `model` setting in the Semantic Layer.
 - If you don’t have a date dimension table, you can still create one by using the code snippet in the [next section](#creating-a-time-spine-table) to build your time spine model.
 :::
