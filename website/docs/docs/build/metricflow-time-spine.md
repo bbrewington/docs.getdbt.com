@@ -115,7 +115,7 @@ For an example project, refer to our [Jaffle shop](https://github.com/dbt-labs/j
 ### Migrating from SQL to YAML
 If your project already includes a time spine (`metricflow_time_spine.sql`), you can migrate its configuration to YAML to address any deprecation warnings you may get.
 
-1. Add the following configuration in a new or existing YAML file. Name the YAML file whatever you want (for example, we'll use `util/_models.yml`):
+1. For example, add the following configuration in a new or existing YAML file using the [`models` key](/reference/model-properties) for the time spine in your `models/` directory. Name the YAML file whatever you want (for example, we'll use `util/_models.yml`):
 
   <File name="models/_models.yml">
 
