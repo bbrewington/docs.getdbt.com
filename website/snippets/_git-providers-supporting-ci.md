@@ -6,7 +6,7 @@
 
 The following table outlines the available integration options and their corresponding capabilities.
 
-| **Git provider** | **Native dbt Cloud integration** | **Automated CI job**|**Git import with URL**| **Information**|
+| **Git provider** | **Native dbt Cloud integration** | **Automated CI job**|**Git clone**| **Information**|
 | -----------------| ---------------------------------| -------------------------------------------|-----------------------|---------|
 |[Azure DevOps](/docs/cloud/git/setup-azure)<br /> <Lifecycle status="enterprise" />|  ✅|  ✅ |  ✅  | Organizations on the Team  and Developer plans can connect to Azure DeveOps using a deploy key. Note, you won’t be able to configure automated CI jobs but you can still develop.|
 |[GitHub](/docs/cloud/git/connect-github)<br /> <Lifecycle status="developer,team,enterprise" /> | ✅ | ✅ |  ✅         |                                  
