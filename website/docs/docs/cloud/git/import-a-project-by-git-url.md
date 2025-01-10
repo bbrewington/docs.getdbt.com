@@ -8,6 +8,10 @@ In dbt Cloud, you can import a git repository from any valid git URL that points
 ## Git protocols
 You must use the `git@...` or `ssh:..`. version of your git URL, not the `https://...` version. dbt Cloud uses the SSH protocol to clone repositories, so dbt Cloud will be unable to clone repos supplied with the HTTP protocol.
 
+import GitProvidersCI from '/snippets/_git-providers-supporting-ci.md';
+
+<GitProvidersCI />
+
 ## Managing deploy keys
 
 After importing a project by Git URL, dbt Cloud will generate a Deploy Key for your repository. To find the deploy key in dbt Cloud:
@@ -137,10 +141,6 @@ If you use Azure DevOps and you are on the dbt Cloud Enterprise plan, you can im
 5. After saving this SSH key, dbt Cloud will be able to read and write files in your Azure DevOps repository.
 
 <Lightbox src="/img/docs/dbt-cloud/cloud-configuring-dbt-cloud/d19f199-Screen_Shot_2020-03-09_at_4.13.50_PM.png" title="Enter and save the public key generated for your repository by dbt Cloud" />
-
-import GitProvidersCI from '/snippets/_git-providers-supporting-ci.md';
-
-<GitProvidersCI />
 
 ## Other git providers
 
