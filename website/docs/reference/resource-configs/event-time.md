@@ -159,7 +159,7 @@ Here are some examples of recommended and not recommended `event_time` columns:
 | ✅ Recommended | `account_created_at` | Represents the specific time when an account was created, making it a fixed event in time.                       |
 | ✅ Recommended | `session_began_at`    | Captures the exact timestamp when a user session started, which won’t change and directly ties to the event.     |
 | ❌ Not recommended | `_fivetran_synced`    | This represents the time the event was ingested, not when it happened.                                           |
-| ❌ Not recommended | `last_updated_at`    | Changes over time and is not tied to the event itself. If used, note the considerations regarding duplicates.    |
+| ❌ Not recommended | `last_updated_at`    | Changes over time and isn't tied to the event itself. If used, note the considerations mentioned earlier in [best practices](#best-practices).    |
 
 ## Examples
 
