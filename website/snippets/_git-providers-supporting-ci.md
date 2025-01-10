@@ -1,4 +1,4 @@
-## Git providers who support CI
+## Availability of features by Git provider
 
 - If your git provider has a [native dbt Cloud integration](/docs/cloud/git/git-configuration-in-dbt-cloud), you can seamlessly set up [continuous integration (CI)](/docs/deploy/ci-jobs) jobs directly within dbt Cloud. 
 
