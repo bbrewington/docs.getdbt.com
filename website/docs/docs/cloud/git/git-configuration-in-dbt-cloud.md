@@ -44,8 +44,8 @@ Whether you use a Git integration that natively connects with dbt Cloud or prefe
     icon="dbt-bit"/>
 
 <Card
-    title="Git providers who support CI"
-    body="Learn which Git providers support CI"
+    title="Availability of CI features by Git provider"
+    body="Learn which Git providers have native support for Continuous Integration workflows"
     link="/docs/deploy/continuous-integration#git-providers-who-support-ci"
     icon="dbt-bit"/>
 </div>
