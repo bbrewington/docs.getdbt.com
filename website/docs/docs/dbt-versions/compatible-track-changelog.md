@@ -60,8 +60,6 @@ Changelogs:
 - [dbt-teradata 1.9.0](https://github.com/Teradata/dbt-teradata/releases/tag/v1.9.0)
 - [dbt-trino 1.9.0](https://github.com/starburstdata/dbt-trino/blob/master/CHANGELOG.md#dbt-trino-190---december-20-2024)
 
-<!-- TODO: add cloud changelog? Somewhere else -->
-
 ## December 2024
 
 Release date: December 12, 2024
