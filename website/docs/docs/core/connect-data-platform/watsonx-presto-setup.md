@@ -72,11 +72,15 @@ my_project:
 
 ## Host parameters
 
-The following profile fields are required for configuring watsonx.data Presto(java) connections. Currently, it supports only the `BasicAuth` authentication method. For IBM watsonx.data SaaS or Software instances, You can get the hostname and port details by clicking View connect details inside the Presto(java) engine details page.
+The following profile fields are required to configure watsonx.data Presto(java) connections. The `method` field determines the authentication type used for the connection:
+1. **`none`** : If not specified, the `method` field defaults to `none`, which is used for unauthenticated connections (e.g., for local development of OSS Presto instances).
+2. **`BasicAuth`** : For secure connections (e.g., to IBM watsonx.data SaaS or Software instances), you must explicitly set `method: BasicAuth` and provide the corresponding `user` and `password` fields.
+
+For IBM watsonx.data SaaS or Software instances, you can get the `hostname` and `port` details by clicking **View connect details** on the Presto(java) engine details page.
 
 | Option    | Required/Optional | Description | Example  |
 | --------- | ------- | ------- | ----------- |
-| `method`  | Required (default value is none) | Authentication method for Presto | `None` or `BasicAuth` |
+| `method`  | Required (default value is none) | Specifies the authentication method for Presto. Use `none` for unauthenticated connections or `BasicAuth` for secure connections. | `None` or `BasicAuth` |
 |   `user`  | Required | Username or email for authentication. | `user` |
 | `password`| Required (if `method` is `BasicAuth`) | Password or API key for authentication | `password` |
 |   `host`  | Required | Hostname for connecting to Presto. | `127.0.0.1` |
