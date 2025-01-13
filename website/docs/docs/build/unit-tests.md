@@ -227,7 +227,7 @@ Incremental models need to exist in the database first before running unit tests
   dbt run --select "config.materialized:incremental" --empty
   ```
 
-  After running the command, you can then perform a regular `dbt build` for that model and then run your unit test
+  After running the command, you can then perform a regular `dbt build` for that model and then run your unit test.
 :::
 
 When testing an incremental model, the expected output is the __result of the materialization__ (what will be merged/inserted), not the resulting model itself (what the final table will look like after the merge/insert).
