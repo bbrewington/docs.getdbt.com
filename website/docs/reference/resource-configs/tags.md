@@ -94,7 +94,7 @@ resource_type:
 
 </File>
 
-For example, to apply tags to a model in your `models/` directory, you would add the following using the `config` property:
+To apply tags to a model in your `models/` directory, add the `config` property similar to the following example:
 
 <File name='models/model.yml'>
 
