@@ -187,7 +187,7 @@ models:
 
 ### Apply tags to models
 
-This section shares how to apply tags to models in the `dbt_project.yml`, `schema.yml`, or SQL files, however you can also apply tags to individual resources. 
+This section demonstrates applying tags to models in the `dbt_project.yml`, `schema.yml`, and SQL files. 
 
 To apply tags to a model in your `dbt_project.yml` file, you would add the following:
 
