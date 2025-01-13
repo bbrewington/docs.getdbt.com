@@ -144,6 +144,8 @@ You can use the [`+` operator](/reference/node-selection/graph-operators#the-plu
 
 :::tip Usage notes about tags
 
+When using tags, consider the following: 
+
 - Tags are additive across project hierarchy.
 - Some resource types (like sources, exposures) require tags at the top level.
 
