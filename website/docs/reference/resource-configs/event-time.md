@@ -149,7 +149,7 @@ Set the `event_time` to the name of the field that represents the actual timesta
 However, if an ingestion date (like `loaded_at`, `ingested_at`, or `last_updated_at`) are the only timestamps you use, you can set `event_time` to these fields. Here are some considerations to keep in mind if you do this:
 
 - Using `last_updated_at` or `loaded_at` &mdash; May result in duplicate entries in the resulting table in the data warehouse over multiple runs. Setting an appropriate [lookback](/reference/resource-configs/lookback) value can reduce duplicates but it can't fully eliminate them since some updates outside the lookback window won't be processed.
-- Using `ingested_at` &mdash; Because this column is created by your ingestion/EL tool instead of coming from the original source, it will change if/when you need to resync your connector for some reason. This means that data will be reprocessed and loaded into your warehouse for a second time against a second date. As long as this never happens (or you run a full refresh when it does), microbatches will be processed correctly when using `ingested_at`. 
+- Using `ingested_at` &mdash; Since this column is created by your ingestion/EL tool instead of coming from the original source, it will change if/when you need to resync your connector for some reason. This means that data will be reprocessed and loaded into your warehouse for a second time against a second date. As long as this never happens (or you run a full refresh when it does), microbatches will be processed correctly when using `ingested_at`. 
 
 Here are some examples of recommended and not recommended `event_time` columns:
 
