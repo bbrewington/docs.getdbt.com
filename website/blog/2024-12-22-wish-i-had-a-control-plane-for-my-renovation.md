@@ -41,7 +41,7 @@ So what should have been quick and collaborative conversations, turned into draw
 - The **builders** are the compute layers (for example, Snowflake, BigQuery, or Databricks) that execute those transformations.
 - The **inspectors** are the monitoring tools, which focus on retrospective insights like logs, job performance, and error rates.
 
-Here’s the challenge: monitoring tools, by their nature, look backward. They’re great at telling you what happened, but they don’t help you plan or declare what should happen. And when these roles &mdash; plans, execution, and monitoring &mdash; are siloed, teams are left trying to manually stitch them together, often wasting time troubleshooting issues or coordinating workflows.
+Here’s the challenge: monitoring tools, by their nature, look backward. They’re great at telling you what happened, but they don’t help you plan or declare what should happen. And when these roles, plans, execution, and monitoring are siloed, teams are left trying to manually stitch them together, often wasting time troubleshooting issues or coordinating workflows.
 
 ## What makes dbt Cloud different
 
