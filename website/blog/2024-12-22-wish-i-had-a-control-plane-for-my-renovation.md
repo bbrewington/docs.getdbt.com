@@ -32,7 +32,7 @@ But as an inexperienced project manager, I was also the one responsible for stit
 - Inspectors flagged issues that were often too late to fix without extra costs or delays. 
 - On top of all this, I also don't speak "builder". 
 
-So what should have been quick, collaborative conversations turned into drawn-out processes because there was no unified system to keep everyone on the same page.
+So what should have been quick and collaborative conversations, turned into drawn-out processes because there was no unified system to keep everyone on the same page.
 
 ## In many ways, this mirrors how data pipelines operate
 
