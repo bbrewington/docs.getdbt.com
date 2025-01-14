@@ -62,6 +62,6 @@ But the real power lies in how dbt integrates these two perspectives. Transforma
 
 When I think back to my renovation, I realize how much smoother it would have been if I’d had a control plane for the entire process. There are firms that specialize in design-and-build projects, in-house architects, engineers, and contractors. The beauty of these firms is that everything is under one roof, so you know they’re communicating seamlessly.
 
-In my case, though, my architect, builder, and engineer were all completely separate, which meant I was the intermediary. I was the pigeon service shuttling information between them, and it was exhausting. Discussions that should have taken minutes stretched into weeks or even months because there was no centralized communication.
+In my case, though, my architect, builder, and engineer were all completely separate, which meant I was the intermediary. I was the pigeon service shuttling information between them, and it was exhausting. Discussions that should have taken minutes, stretched into weeks and sometimes even months because there was no centralized communication.
 
 dbt Cloud is like having that design-and-build firm for your data pipelines. It’s the control plane that unites proactive planning with retrospective monitoring, eliminating silos and inefficiencies. With dbt Cloud, you don’t need to play the role of the pigeon service &mdash; it gives you the visibility, integration, and control you need to manage modern data workflows effortlessly.
