@@ -60,7 +60,7 @@ But the real power lies in how dbt integrates these two perspectives. Transforma
 
 ## Why I wish I had a control plane for my renovation
 
-When I think back to my renovation, I realize how much smoother it would have been if I’d had a control planefor the entire process. There are firms that specialize in design-and-build projects, with in-house architects, engineers, and contractors. The beauty of these firms is that everything is under one roof, so you know they’re communicating seamlessly.
+When I think back to my renovation, I realize how much smoother it would have been if I’d had a control plane for the entire process. There are firms that specialize in design-and-build projects, in-house architects, engineers, and contractors. The beauty of these firms is that everything is under one roof, so you know they’re communicating seamlessly.
 
 In my case, though, my architect, builder, and engineer were all completely separate, which meant I was the intermediary. I was the pigeon service shuttling information between them, and it was exhausting. Discussions that should have taken minutes stretched into weeks or even months because there was no centralized communication.
 
