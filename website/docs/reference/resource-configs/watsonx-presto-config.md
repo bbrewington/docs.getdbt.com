@@ -5,7 +5,13 @@ id: "watsonx-presto-configs"
 
 ## Instance requirements
 
-To use IBM watsonx.data Presto(java) with dbt, ensure the instance has an attached catalog that allows creating, renaming, altering, and dropping objects such as tables and views. The user connecting to the instance with dbt must have equivalent permissions for the target catalog.
+To use IBM watsonx.data Presto(java) with `dbt-watsonx-presto` adapter, ensure the instance has an attached catalog that supports creating, renaming, altering, and dropping objects such as tables and views. The user connecting to the instance via the `dbt-watsonx-presto` adapter must have the necessary permissions for the target catalog.
+
+For detailed setup instructions, including setting up watsonx.data, adding the Presto(Java) engine, configuring storages, registering data sources, and managing permissions, refer to the official IBM documentation:
+- watsonx.data Software Documentation: [IBM watsonx.data Software Guide](https://www.ibm.com/docs/en/watsonx/watsonxdata/2.1.x)
+- watsonx.data SaaS Documentation: [IBM watsonx.data SaaS Guide](https://cloud.ibm.com/docs/watsonxdata?topic=watsonxdata-getting-started)
+
+
 
 ## Session properties
 
@@ -45,40 +51,59 @@ hive.allow-rename-table=true
 
 ## File format configuration
 
-For file-based connectors, such as Hive, you can customize table materialization and data formats. For example, to create a partitioned [Parquet](https://spark.apache.org/docs/latest/sql-data-sources-parquet.html) table:
+File-based connectors, such as Hive and Iceberg, allow customization of table materialization, data formats, and partitioning strategies in dbt models. The following examples demonstrate how to configure these options for each connector.
+
+
+### Hive Configuration
+
+Hive supports specifying file formats and partitioning strategies using the properties parameter in dbt models. The example below demonstrates how to create a partitioned table stored in Parquet format:
 
 ```sql
 {{
   config(
     materialized='table',
     properties={
-      "format": "'PARQUET'",
-      "partitioning": "ARRAY['bucket(id, 2)']",
+      "format": "'PARQUET'", -- Specifies the file format
+      "partitioned_by": "ARRAY['id']", -- Defines the partitioning column(s)
     }
   )
 }}
 ```
 
-## Seeds and prepared statements
-The `dbt-watsonx-presto` adapter offers comprehensive support for all [Presto datatypes](https://prestodb.io/docs/current/language/types.html) and [watsonx.data Presto datatypes](https://www.ibm.com/support/pages/node/7157339) in seed files. However, to utilize this feature, you need to explicitly define the data types for each column in the `dbt_project.yml` file.
+For more details about Hive table creation and supported properties, refer to the [Hive connector documentation](https://prestodb.io/docs/current/connector/hive.html#create-a-managed-table).
 
-To configure column data types, update your `<project_name>/dbt_project.yml` file as follows:
+### Iceberg Configuration
 
-```sh
-seeds:
-  <project_name>:
-    <seed_file_name>:
-      +column_types:
-        <col_1>: <datatype>
-        <col_2>: <datatype>
+Iceberg supports defining file formats and advanced partitioning strategies to optimize query performance. The following example demonstrates how to create a ORC table partitioned using a bucketing strategy:
+
+```sql
+{{
+  config(
+    materialized='table',
+    properties={
+      "format": "'ORC'", -- Specifies the file format
+      "partitioning": "ARRAY['bucket(id, 2)']", -- Defines the partitioning strategy
+    }
+  )
+}}
 ```
-This ensures that dbt correctly interprets and applies the specified data types when loading seed data into your watsonx.data Presto instances.
+For more information about Iceberg table creation and supported configurations, refer to the [Iceberg connector documentation](https://prestodb.io/docs/current/connector/iceberg.html#create-table).
+
+
+## Seeds and prepared statements
+The `dbt-watsonx-presto` adapter offers comprehensive support for all [Presto datatypes](https://prestodb.io/docs/current/language/types.html) and [watsonx.data Presto datatypes](https://www.ibm.com/support/pages/node/7157339) in seed files. To leverage this functionality, you must explicitly define the data types for each column.
+
+You can configure column data types either in the dbt_project.yml file or in property files, as supported by dbt. For more details on seed configuration and best practices, refer to the [dbt seed configuration documentation](https://docs.getdbt.com/reference/seed-configs).
 
 
 ## Materializations
+The `dbt-watsonx-presto` adapter supports both table and view materializations, allowing you to manage how your data is stored and queried in watsonx.data Presto(java).
+
+For further information on configuring materializations, refer to the [dbt materializations documentation](https://docs.getdbt.com/reference/resource-configs/materialized).
+
 ### Table
 
-The `dbt-watsonx-presto` adapter helps you create and update tables through table materialization, making it easier to work with data in watsonx.data Presto.
+The `dbt-watsonx-presto` adapter enables you to create and update tables through table materialization, making it easier to work with data in watsonx.data Presto.
 
 #### Recommendations
 - **Check Permissions:** Ensure that the necessary permissions for table creation are enabled in the catalog or schema.
@@ -93,20 +118,12 @@ PrestoUserError(type=USER_ERROR, name=NOT_SUPPORTED, message="This connector doe
 
 ### View
 
-The `dbt-watsonx-presto` adapter supports creating views using the `materialized='view'` configuration in your dbt model. By default, when you set the materialization to view, it creates a view in watsonx.data Presto.
+The `dbt-watsonx-presto` adapter automatically creates views by default, as views are the standard materialization in dbt. If no materialization is explicitly specified, dbt will create a view in watsonx.data Presto.
 
-```sql
-{{
-  config(
-    materialized='view',
-  )
-}}
-```
-
-For more details, refer to the watsonx.data [sql statement support](https://www.ibm.com/support/pages/node/7157339) or Presto [connector documentation](https://prestodb.io/docs/current/connector.html) to verify whether your connector supports view creation.
+To confirm whether your connector supports view creation, refer to the watsonx.data [sql statement support](https://www.ibm.com/support/pages/node/7157339) or Presto [connector documentation](https://prestodb.io/docs/current/connector.html).
 
 
-### Unsupported Features
+## Unsupported Features
 The following features are not supported by the `dbt-watsonx-presto` adapter
 - Incremental Materialization
 - Materialized Views
