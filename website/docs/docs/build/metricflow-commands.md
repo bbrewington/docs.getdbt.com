@@ -321,7 +321,14 @@ Options:
 
 ## Query examples
 
-The following tabs present various types of query examples that you can use to query metrics and dimensions. Select the tab that best suits your needs:
+This section shares various types of query examples that you can use to query metrics and dimensions. The query examples listed are:
+
+- [Query metrics](#query-metrics)
+- [Query dimensions](#query-dimensions)
+- [Add `order`/`limit` function](#add-orderlimit)
+- [Add `where` clause](#add-where-clause)
+- [Filter by time](#filter-by-time)
+- [Query saved queries](#query-saved-queries)
 
 ### Query metrics
 
