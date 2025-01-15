@@ -118,7 +118,7 @@ Use the `mf` prefix before the command name to execute them in dbt Core. For exa
 </TabItem>
 </Tabs>
 
-### List metrics
+## List metrics
 This command lists the metrics with their available dimensions:
 
 ```bash
@@ -132,7 +132,7 @@ Options:
   --help                 Show this message and exit.
 ```
 
-### List dimensions
+## List dimensions
 
 This command lists all unique dimensions for a metric or multiple metrics. It displays only common dimensions when querying multiple metrics:
 
@@ -146,7 +146,7 @@ Options:
   --help              Show this message and exit.
 ```
 
-### List dimension-values
+## List dimension-values
 
 This command lists all dimension values with the corresponding metric:
 
@@ -168,7 +168,7 @@ Options:
   --help              Show this message and exit.
 ```
 
-### List entities
+## List entities
 
 This command lists all unique entities:
 
@@ -182,7 +182,7 @@ Options:
   --help              Show this message and exit.
 ```
 
-### List saved queries
+## List saved queries
 
 This command lists all available saved queries:
 
@@ -209,7 +209,7 @@ The list of available saved queries:
        - Export(new_customer_orders, alias=orders, schemas=customer_schema, exportAs=TABLE)
 ```
 
-### Validate
+## Validate
 
 The following command performs validations against the defined semantic model configurations.
 
@@ -234,7 +234,7 @@ Options:
   --help                          Show this message and exit.
 ```
 
-### Health checks
+## Health checks
 
 The following command performs a health check against the data platform you provided in the configs. 
 
@@ -244,7 +244,7 @@ Note, in dbt Cloud the `health-checks` command isn't required since it uses dbt 
 mf health-checks # In dbt Core
 ```
 
-### Tutorial
+## Tutorial
 
 Follow the dedicated MetricFlow tutorial to help you get started:
 <!--dbt sl tutorial # In dbt Cloud-->
@@ -253,7 +253,7 @@ Follow the dedicated MetricFlow tutorial to help you get started:
 mf tutorial # In dbt Core
 ```
 
-### Query
+## Query
 
 Create a new query with MetricFlow and execute it against your data platform. The query returns the following result:
 
@@ -284,10 +284,11 @@ Options:
                            time of the data (inclusive)
                            *Not available in dbt Cloud yet
 
-  --where TEXT             SQL-like where statement provided as a string and wrapped in quotes: --where "condition_statement"
-                           For example, to query a single statement: --where "revenue > 100"
-                           To query multiple statements: --where "revenue > 100 and user_count < 1000"
-                           To add a dimension filter to a where filter, ensure the filter item is part of your model. 
+  --where TEXT             SQL-like where statement provided as a string and wrapped in quotes.
+                           All filter items must explicitly reference fields or dimensions that are part of your model.
+                           To query a single statement: ---where "{{ Dimension('order_id__revenue') }} > 100"
+                           To query multiple statements: --where "{{ Dimension('order_id__revenue') }} > 100 and {{ Dimension('user_count') }} < 1000"
+                           To add a dimension filter, use the `Dimension()` template wrapper to indicate that the filter item is part of your model. 
                            Refer to the [FAQ](#faqs) for more info on how to do this using a template wrapper.
 
   --limit TEXT             Limit the number of rows out using an int or leave
@@ -318,13 +319,11 @@ Options:
   ```
 
 
-### Query examples
+## Query examples
 
 The following tabs present various types of query examples that you can use to query metrics and dimensions. Select the tab that best suits your needs:
 
-<Tabs>
-
-<TabItem value="eg1" label="Metrics">
+### Query metrics
 
 Use the example to query multiple metrics by dimension and return the `order_total` and `users_active` metrics by `metric_time.` 
 
@@ -347,9 +346,8 @@ mf query --metrics order_total,users_active --group-by metric_time # In dbt Core
 | 2017-06-20    |         712.51 |
 | 2017-06-21    |         541.65 |
 ```
-</TabItem>
 
-<TabItem value="eg2" label="Dimensions">
+### Query Dimensions
 
 You can include multiple dimensions in a query. For example, you can group by the `is_food_order` dimension to confirm if orders were for food or not.  Note that when you query a dimension, you need to specify the primary entity for that dimension. In the following example, the primary entity is `order_id`.
 
@@ -375,9 +373,7 @@ mf query --metrics order_total --group-by order_id__is_food_order # In dbt Core
 | 2017-06-19    | True            |         448.11 |
 ```
 
-</TabItem>
-
-<TabItem value="eg3" label="Order/limit">
+### Add Order/limit
 
 You can add order and limit functions to filter and present the data in a readable format. The following query limits the data set to 10 records and orders them by `metric_time`, descending. Note that using the `-` prefix will sort the query in descending order. Without the `-` prefix sorts the query in ascending order.
 
@@ -405,9 +401,8 @@ mf query --metrics order_total --group-by order_id__is_food_order --limit 10 --o
 | 2017-08-29    | False           |         333.65 |
 | 2017-08-28    | False           |         334.73 |
 ```
-</TabItem>
 
-<TabItem value="eg4" label="where clause">
+### Add where clause
 
 You can further filter the data set by adding a `where` clause to your query. The following example shows you how to query the `order_total` metric, grouped by `is_food_order` with multiple where statements (orders that are food orders and orders from the week starting on or after Feb 1st, 2024). Note that when you query a dimension, you need to specify the primary entity for that dimension. In the following example, the primary entity is `order_id`.
 
@@ -437,9 +432,7 @@ mf query --metrics order_total --group-by order_id__is_food_order --where "{{ Di
 | 2017-08-22    | True            |         401.91 |
 ```
 
-</TabItem>
-
-<TabItem value="eg5" label=" Filter by time">
+### Filter by time
 
 To filter by time, there are dedicated start and end time options. Using these options to filter by time allows MetricFlow to further optimize query performance by pushing down the where filter when appropriate. 
 
@@ -468,9 +461,7 @@ mf query --metrics order_total --group-by order_id__is_food_order --limit 10 --o
 | 2017-08-22    | True            |         401.91 |
 ```
 
-</TabItem>
-
-<TabItem value="eg6" label=" Saved queries">
+### Query saved queries
 
 You can use this for frequently used queries. Replace `<name>` with the name of your [saved query](/docs/build/saved-queries). 
 
@@ -490,7 +481,7 @@ When querying [saved queries](/docs/build/saved-queries), you can use parameters
 </TabItem>
 </Tabs>
 
-### Additional query examples
+## Additional query examples
 
 The following tabs present additional query examples, like exporting to a CSV. Select the tab that best suits your needs:
 
@@ -559,7 +550,7 @@ mf query --metrics order_total --group-by metric_time,is_food_order --limit 10 -
 </TabItem>
 </Tabs>
 
-### Time granularity
+## Time granularity
 
 Optionally, you can specify the time granularity you want your data to be aggregated at by appending two underscores and the unit of granularity you want to `metric_time`, the global time dimension. You can group the granularity by: `day`, `week`, `month`, `quarter`, and `year`. 
 
@@ -571,7 +562,7 @@ dbt sl query --metrics revenue --group-by metric_time__month # In dbt Cloud
 mf query --metrics revenue --group-by metric_time__month # In dbt Core
 ```
 
-### Export
+## Export
 
 Run [exports for a specific saved query](/docs/use-dbt-semantic-layer/exports#exports-for-single-saved-query). Use this command to test and generate exports in your development environment. You can also use the `--select` flag to specify particular exports from a saved query. Refer to [exports in development](/docs/use-dbt-semantic-layer/exports#exports-in-development) for more info. 
 
@@ -581,7 +572,7 @@ Export is available in dbt Cloud.
 dbt sl export 
 ```
 
-### Export-all
+## Export-all
 
 Run [exports for multiple saved queries](/docs/use-dbt-semantic-layer/exports#exports-for-multiple-saved-queries) at once. This command provides a convenient way to manage and execute exports for several queries simultaneously, saving time and effort. Refer to [exports in development](/docs/use-dbt-semantic-layer/exports#exports-in-development) for more info. 
 
