@@ -478,9 +478,6 @@ For example, if you use dbt Cloud and have a saved query named `new_customer_ord
 When querying [saved queries](/docs/build/saved-queries), you can use parameters such as `where`, `limit`, `order`, `compile`, and so on. However, keep in mind that you can't access `metric` or `group_by` parameters in this context. This is because they are predetermined and fixed parameters for saved queries, and you can't change them at query time. If you would like to query more metrics or dimensions, you can build the query using the standard format.
 :::
 
-</TabItem>
-</Tabs>
-
 ## Additional query examples
 
 The following tabs present additional query examples, like exporting to a CSV. Select the tab that best suits your needs:
