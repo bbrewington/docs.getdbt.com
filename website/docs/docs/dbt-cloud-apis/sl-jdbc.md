@@ -204,7 +204,7 @@ select * from semantic_layer.saved_queries()
 
 <Expandable alt_header="Fetch metric aliases">
 
-You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions. 
+You can query metrics using aliases for simpler or more intuitive names, even if the alias isn't defined in the metric configuration. The query returns the alias as the metric name, for example:
 
 ```sql
 select * from {{
@@ -212,7 +212,7 @@ select * from {{
 }}
 ```
 
-You can define an alias at query time even if the alias isn't defined in the metric configuration. The query will return the alias as the metric name. For example, if you define an alias for `revenue` as `banana`, the query will return a column named `banana` even if `banana` isn't defined in the metric configuration.
+In this example, if you define an alias for `revenue` as `banana`, the query will return a column named `banana` even if `banana` isn't defined in the metric configuration. However, when using `where` Jinja clauses, you need to reference the _actual_ metric name (`revenue` in this case) instead of the alias.
 
 For more a more detailed example, see [Query metric alias](#query-metric-alias).
 </Expandable>
@@ -500,7 +500,7 @@ The JDBC API will use the saved query (`new_customer_orders`) as defined and app
 
 ### Query metric alias
 
-You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions.
+You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions. 
 
 For example, let's say your metric configuration includes an alias like `total_revenue_global` for the `order_total` metric. You can query the metric using the alias instead of the original name:
 
@@ -519,6 +519,15 @@ The result will be:
 | 2023-12-02    |         1725.50 |
 | 2023-12-03    |         1850.00 |
 ```
+
+:::tip
+Note that you need to use the actual metric name when using the `where` Jinja clauses. For example, if you used `banana` as an alias for `revenue`, you need to use the actual metric name, `revenue`, in the `where` clause, not `banana`. 
+
+```graphql
+semantic_layer.query(metrics=[Metric("revenue", alias="banana")], where="{{ Metric('revenue') }} > 0")
+```
+
+:::
 
 ### Multi-hop joins
 
