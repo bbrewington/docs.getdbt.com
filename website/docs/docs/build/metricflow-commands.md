@@ -347,7 +347,7 @@ mf query --metrics order_total,users_active --group-by metric_time # In dbt Core
 | 2017-06-21    |         541.65 |
 ```
 
-### Query Dimensions
+### Query dimensions
 
 You can include multiple dimensions in a query. For example, you can group by the `is_food_order` dimension to confirm if orders were for food or not.  Note that when you query a dimension, you need to specify the primary entity for that dimension. In the following example, the primary entity is `order_id`.
 
