@@ -188,7 +188,7 @@ MetricTypeParams {
 ```
 
 
-#### Dimension Types
+#### Dimension types
 
 ```graphql
 Dimension {
