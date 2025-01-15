@@ -38,19 +38,17 @@ Note that the dbt Semantic Layer API doesn't support `ref` to call dbt objects. 
 - A dbt Cloud [service token](/docs/dbt-cloud-apis/service-tokens) with "Semantic Layer Only” and "Metadata Only" permissions
 - Your dbt project is configured and connected to a data platform
 
-
 ## Using the GraphQL API
 
 If you're a dbt user or partner with access to dbt Cloud and the [dbt Semantic Layer](/docs/use-dbt-semantic-layer/dbt-sl), you can [setup](/docs/use-dbt-semantic-layer/setup-sl) and test this API with data from your own instance by configuring the Semantic Layer and obtaining the right GQL connection parameters described in this document. 
 
 Refer to [Get started with the dbt Semantic Layer](/guides/sl-snowflake-qs) for more info.
 
-
 ### Authentication 
 
 Authentication uses a dbt Cloud [service account tokens](/docs/dbt-cloud-apis/service-tokens) passed through a header as follows. To explore the schema, you can enter this information in the "header" section.
 
-```
+```shell
 {"Authorization": "Bearer <SERVICE TOKEN>"}
 ```
 
@@ -58,7 +56,7 @@ Each GQL request also requires a dbt Cloud `environmentId`. The API uses both th
 
 ### Metadata calls
 
-**Fetch data platform dialect** 
+#### Fetch data platform dialect
 
 In some cases in your application, it may be useful to know the dialect or data platform that's internally used for the dbt Semantic Layer connection (such as if you are building `where` filters from a user interface rather than user-inputted SQL). 
 
@@ -72,13 +70,13 @@ The GraphQL API has an easy way to fetch this with the following query:
 }
 ```
 
-**Fetch available metrics**
+#### Fetch available metrics
 
 ```graphql
 metrics(environmentId: BigInt!): [Metric!]!
 ```
 
-**Fetch available dimensions for metrics**
+#### Fetch available dimensions for metrics
 
 ```graphql
 dimensions(
@@ -87,7 +85,7 @@ dimensions(
 ): [Dimension!]!
 ```
 
-**Fetch available granularities given metrics**
+#### Fetch available granularities given metrics
 
 Note: This call for `queryableGranularities` returns only queryable granularities for metric time - the primary time dimension across all metrics selected.
 
@@ -123,7 +121,7 @@ You can also optionally access it from the metrics endpoint:
 }
 ```
 
-**Fetch measures**
+#### Fetch measures
 
 ```graphql
 {
@@ -147,7 +145,7 @@ You can also optionally access it from the metrics endpoint:
 }
 ```
 
-**Fetch available metrics given a set of dimensions**
+#### Fetch available metrics given a set of dimensions
 
 ```graphql
 metricsForDimensions(
@@ -156,7 +154,7 @@ metricsForDimensions(
 ): [Metric!]!
 ```
 
-**Metric Types**
+#### Metric types
 
 ```graphql
 Metric {
@@ -174,7 +172,7 @@ Metric {
 MetricType = [SIMPLE, RATIO, CUMULATIVE, DERIVED]
 ```
 
-**Metric Type parameters**
+#### Metric type parameters
 
 ```graphql
 MetricTypeParams {
@@ -190,7 +188,7 @@ MetricTypeParams {
 ```
 
 
-**Dimension Types**
+#### Dimension Types
 
 ```graphql
 Dimension {
@@ -208,7 +206,7 @@ Dimension {
 DimensionType = [CATEGORICAL, TIME]
 ```
 
-**List saved queries**
+#### List saved queries
   
   ```graphql
   {
@@ -235,9 +233,13 @@ DimensionType = [CATEGORICAL, TIME]
 
 ### Querying
 
-When querying for data, _either_ a `groupBy` _or_ a `metrics` selection is required. 
+When querying for data, _either_ a `groupBy` _or_ a `metrics` selection is required. The following section provides examples of how to query metrics:
 
-**Create Dimension Values query**
+- [Create dimension values query](#create-dimension-values-query)
+- [Create metric query](#create-metric-query)
+- [Fetch query result](#fetch-query-result)
+
+#### Create dimension values query
 
 ```graphql
 
@@ -249,7 +251,7 @@ mutation createDimensionValuesQuery(
 
 ```
 
-**Create Metric query**
+#### Create metric query
 
 ```graphql
 createQuery(
@@ -283,7 +285,7 @@ OrderByinput { # -- pass one and only one of metric or groupBy
 }
 ```
 
-**Fetch query result**
+#### Fetch query result
 
 ```graphql
 query(
@@ -323,7 +325,7 @@ mutation {
 
 ### Output format and pagination
 
-**Output format**
+#### Output format
 
 By default, the output is in Arrow format. You can switch to JSON format using the following parameter. However, due to performance limitations, we recommend using the JSON parameter for testing and validation. The JSON received is a base64 encoded string. To access it, you can decode it using a base64 decoder. The JSON is created from pandas, which means you can change it back to a dataframe using `pandas.read_json(json, orient="table")`. Or you can work with the data directly using `json["data"]`, and find the table schema using `json["schema"]["fields"]`. Alternatively, you can pass `encoded:false` to the jsonResult field to get a raw JSON string directly.
 
@@ -343,7 +345,7 @@ By default, the output is in Arrow format. You can switch to JSON format using t
 
 The results default to the table but you can change it to any [pandas](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_json.html) supported value. 
 
-**Pagination**
+#### Pagination
 
 By default, we return 1024 rows per page. If your result set exceeds this, you need to increase the page number using the `pageNum` option.
 
@@ -413,11 +415,36 @@ order_total  ordered_at
 """
 ```
 
-### Additional Create Query examples 
+### Additional create query examples 
 
-The following section provides query examples for the GraphQL API, such as how to query metrics, dimensions, where filters, and more.
+The following section provides query examples for the GraphQL API, such as how to query metrics, dimensions, where filters, and more:
 
-**Query two metrics grouped by time**
+    - [Query metric alias](#query-metric-alias)
+    - [Query two metrics grouped by time](#query-two-metrics-grouped-by-time)
+    - [Query with a time grain](#query-with-a-time-grain)
+    - [Query two metrics with a categorical dimension](#query-two-metrics-with-a-categorical-dimension)
+    - [Query a categorical dimension on its own](#query-a-categorical-dimension-on-its-own)
+    - [Query with a where filter](#query-with-a-where-filter)
+    - [Query with order](#query-with-order)
+    - [Query with limit](#query-with-limit)
+    - [Query with just compiling SQL](#query-with-just-compiling-sql)
+    - [Querying compile SQL with saved queries](#querying-compile-sql-with-saved-queries)
+    - [Create query with saved queries](#create-query-with-saved-queries)
+
+#### Query metric alias
+
+```graphql
+mutation {
+  createQuery(
+    environmentId: "..."
+    metrics: {name: "metric_name", alias: "metric_alias"}
+  ) {
+    ...
+  }
+}
+```
+
+#### Query two metrics grouped by time
 
 ```graphql
 mutation {
@@ -431,7 +458,7 @@ mutation {
 }
 ```
 
-**Query with a time grain** 
+#### Query with a time grain
 
 ```graphql
 mutation {
@@ -447,7 +474,7 @@ mutation {
 
 Note that when using granularity in the query, the output of a time dimension with a time grain applied to it always takes the form of a dimension name appended with a double underscore and the granularity level - `{time_dimension_name}__{DAY|WEEK|MONTH|QUARTER|YEAR}`. Even if no granularity is specified, it will also always have a granularity appended to it and will default to the lowest available (usually daily for most data sources). It is encouraged to specify a granularity when using time dimensions so that there won't be any unexpected results with the output data.
 
-**Query two metrics with a categorical dimension**
+#### Query two metrics with a categorical dimension
 
 ```graphql
 mutation {
@@ -461,7 +488,7 @@ mutation {
 }
 ```
 
-**Query a categorical dimension on its own**
+#### Query a categorical dimension on its own
 
 ```graphql
 mutation {
@@ -474,7 +501,7 @@ mutation {
 }
 ```
 
-**Query with a where filter** 
+#### Query with a where filter
 
 The `where` filter takes a list argument (or a string for a single input). Depending on the object you are filtering, there are a couple of parameters:
  
@@ -546,7 +573,7 @@ Invalid filters would be:
 
   * `"{{ TimeDimension('metric_time', 'month') }} > '2020-01-01'"` &mdash; `metric_1` is not available at a month grain.
 
-**Query with Order**
+#### Query with order
 
 ```graphql
 mutation {
@@ -561,8 +588,7 @@ mutation {
 }
 ```
 
-
-**Query with Limit**
+#### Query with limit
 
 ```graphql
 mutation {
@@ -577,7 +603,7 @@ mutation {
 }
 ```
 
-**Query with just compiling SQL** 
+#### Query with just compiling SQL
 
 This takes the same inputs as the `createQuery` mutation.
 
@@ -593,7 +619,7 @@ mutation {
 }
 ```
 
-**Querying compile SQL with saved queries** 
+#### Querying compile SQL with saved queries
 
 This query includes the field `savedQuery` and generates the SQL based on a predefined [saved query](/docs/build/saved-queries),rather than dynamically building it from a list of metrics and groupings. You can use this for frequently used queries.
 
@@ -613,7 +639,7 @@ mutation {
 When querying [saved queries](/docs/build/saved-queries),you can use parameters such as `where`, `limit`, `order`, `compile`, and so on. However, keep in mind that you can't access `metric` or `group_by` parameters in this context. This is because they are predetermined and fixed parameters for saved queries, and you can't change them at query time. If you would like to query more metrics or dimensions, you can build the query using the standard format.
 :::
 
-**Create query with saved queries** 
+#### Create query with saved queries
 
 This takes the same inputs as the `createQuery` mutation, but includes the field `savedQuery`. You can use this for frequently used queries.
 
