@@ -373,7 +373,7 @@ mf query --metrics order_total --group-by order_id__is_food_order # In dbt Core
 | 2017-06-19    | True            |         448.11 |
 ```
 
-### Add Order/limit
+### Add order/limit
 
 You can add order and limit functions to filter and present the data in a readable format. The following query limits the data set to 10 records and orders them by `metric_time`, descending. Note that using the `-` prefix will sort the query in descending order. Without the `-` prefix sorts the query in ascending order.
 
