@@ -204,13 +204,15 @@ select * from semantic_layer.saved_queries()
 
 <Expandable alt_header="Fetch metric aliases">
 
-You can query metrics using their defined aliases. Aliases allow you to use simpler or more intuitive names for metrics instead of their full definitions.
+You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions. 
 
 ```sql
 select * from {{
     semantic_layer.query(metrics=[Metric("metric_name", alias="metric_alias")])
 }}
 ```
+
+You can define an alias at query time even if the alias isn't defined in the metric configuration. The query will return the alias as the metric name. For example, if you define an alias for `revenue` as `banana`, the query will return a column named `banana` even if `banana` isn't defined in the metric configuration.
 
 For more a more detailed example, see [Query metric alias](#query-metric-alias).
 </Expandable>
@@ -498,20 +500,20 @@ The JDBC API will use the saved query (`new_customer_orders`) as defined and app
 
 ### Query metric alias
 
-You can query metrics using their defined aliases. Aliases allow you to use simpler or more intuitive names for metrics instead of their full definitions.
+You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions.
 
-For example, let's say your metric configuration includes an alias like `total_revenue` for the `order_total` metric. You can query the metric using the alias instead of the original name:
+For example, let's say your metric configuration includes an alias like `total_revenue_global` for the `order_total` metric. You can query the metric using the alias instead of the original name:
 
 ```sql
 select * from {{
-    semantic_layer.query(metrics=[Metric("order_total", alias="total_revenue")], group_by=['metric_time'])
+    semantic_layer.query(metrics=[Metric("order_total", alias="total_revenue_global")], group_by=['metric_time'])
 }}
 ```
 
 The result will be:
 
 ```
-| METRIC_TIME   | TOTAL_REVENUE |
+| METRIC_TIME   | TOTAL_REVENUE_GLOBAL |
 |:--------------|---------------:|
 | 2023-12-01    |         1500.75 |
 | 2023-12-02    |         1725.50 |

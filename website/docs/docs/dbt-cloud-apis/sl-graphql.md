@@ -437,7 +437,7 @@ The following section provides query examples for the GraphQL API, such as how t
 mutation {
   createQuery(
     environmentId: "..."
-    metrics: {name: "metric_name", alias: "metric_alias"}
+    metrics: [{name: "metric_name", alias: "metric_alias"}]
   ) {
     ...
   }
