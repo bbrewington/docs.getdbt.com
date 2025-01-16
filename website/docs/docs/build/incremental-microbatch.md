@@ -29,7 +29,7 @@ Microbatch is an incremental strategy designed for large time-series datasets:
 
 - Note, microbatch might not be the best strategy for all use cases. Consider other strategies for use cases such as not having a reliable `event_time` column or if you want more control over the incremental logic. Read more in [How `microbatch` compares to other incremental strategies](#how-microbatch-compares-to-other-incremental-strategies).
 
-### How microbatch works
+## How microbatch works
 
 When dbt runs a microbatch model — whether for the first time, during incremental runs, or in specified backfills — it will split the processing into multiple queries (or "batches"), based on the `event_time` and `batch_size` you configure.
 
