@@ -420,40 +420,24 @@ order_total  ordered_at
 The following section provides query examples for the GraphQL API, such as how to query metrics, dimensions, where filters, and more:
 
     - [Query metric alias](#query-metric-alias)
-    - [Query two metrics grouped by time](#query-two-metrics-grouped-by-time)
     - [Query with a time grain](#query-with-a-time-grain)
-    - [Query two metrics with a categorical dimension](#query-two-metrics-with-a-categorical-dimension)
+    - [Query multiple metrics and multiple dimensions](#query-multiple-metrics-and-multiple-dimensions)
     - [Query a categorical dimension on its own](#query-a-categorical-dimension-on-its-own)
     - [Query with a where filter](#query-with-a-where-filter)
     - [Query with order](#query-with-order)
     - [Query with limit](#query-with-limit)
+    - [Query saved queries](#query-saved-queries) 
     - [Query with just compiling SQL](#query-with-just-compiling-sql)
-    - [Querying compile SQL with saved queries](#querying-compile-sql-with-saved-queries)
-    - [Create query with saved queries](#create-query-with-saved-queries)
-
+    
 #### Query metric alias
 
 ```graphql
 mutation {
   createQuery(
-    environmentId: "..."
+    environmentId: "123"
     metrics: [{name: "metric_name", alias: "metric_alias"}]
   ) {
     ...
-  }
-}
-```
-
-#### Query two metrics grouped by time
-
-```graphql
-mutation {
-  createQuery(
-    environmentId: BigInt!
-    metrics: [{name: "food_order_amount"}]
-    groupBy: [{name: "metric_time"}, {name: "customer__customer_type"}]
-  ) {
-    queryId
   }
 }
 ```
@@ -463,7 +447,7 @@ mutation {
 ```graphql
 mutation {
   createQuery(
-    environmentId: BigInt!
+    environmentId: "123"
     metrics: [{name: "order_total"}]
     groupBy: [{name: "metric_time", grain: MONTH}] 
   ) {
@@ -474,12 +458,12 @@ mutation {
 
 Note that when using granularity in the query, the output of a time dimension with a time grain applied to it always takes the form of a dimension name appended with a double underscore and the granularity level - `{time_dimension_name}__{DAY|WEEK|MONTH|QUARTER|YEAR}`. Even if no granularity is specified, it will also always have a granularity appended to it and will default to the lowest available (usually daily for most data sources). It is encouraged to specify a granularity when using time dimensions so that there won't be any unexpected results with the output data.
 
-#### Query two metrics with a categorical dimension
+#### Query multiple metrics and multiple dimensions
 
 ```graphql
 mutation {
   createQuery(
-    environmentId: BigInt!
+    environmentId: "123"
     metrics: [{name: "food_order_amount"}, {name: "order_gross_profit"}]
     groupBy: [{name: "metric_time", grain: MONTH}, {name: "customer__customer_type"}]
   ) {
@@ -493,7 +477,7 @@ mutation {
 ```graphql
 mutation {
   createQuery(
-    environmentId: 123456
+    environmentId: "123"
     groupBy: [{name: "customer__customer_type"}]
   ) {
     queryId
@@ -514,7 +498,7 @@ Note: If you prefer a `where` clause with a more explicit path, you can optional
 ```graphql
 mutation {
   createQuery(
-    environmentId: BigInt!
+    environmentId: "123"
     metrics:[{name: "order_total"}]
     groupBy:[{name: "customer__customer_type"}, {name: "metric_time", grain: month}]
     where:[{sql: "{{ Dimension('customer__customer_type') }} = 'new'"}, {sql:"{{ Dimension('metric_time').grain('month') }} > '2022-10-01'"}]
@@ -524,9 +508,11 @@ mutation {
 }
 ```
 
-For both `TimeDimension()`, the grain is only required in the WHERE filter if the aggregation time dimensions for the measures and metrics associated with the where filter have different grains. 
+For both `TimeDimension()`, the grain is only required in the `where` filter if the aggregation time dimensions for the measures and metrics associated with the where filter have different grains. 
 
-For example, consider this Semantic model and Metric configuration, which contains two metrics that are aggregated across different time grains. This example shows a single semantic model, but the same goes for metrics across more than one semantic model.
+#### Example
+
+For example, consider this semantic model and metric configuration, which contains two metrics that are aggregated across different time grains. This example shows a single semantic model, but the same goes for metrics across more than one semantic model.
 
 ```yaml
 semantic_model:
@@ -563,22 +549,36 @@ metrics:
       measure: measure_1
 ```
 
-Assuming the user is querying `metric_0` and `metric_1` together, a valid filter would be:
+Assuming the user is querying `metric_0` and `metric_1` together, the following are valid or invalid filters:
 
-  * `"{{ TimeDimension('metric_time', 'year') }} > '2020-01-01'"`
+| <div style={{width:'200px'}}>Example</div> | <div style={{width:'250px'}}>Filter</div> |
+| ------- | ------ |
+| ✅ <br />   Valid filter| `"{{ TimeDimension('metric_time', 'year') }} > '2020-01-01'"`  |
+| ❌ <br /> Invalid filter | ` "{{ TimeDimension('metric_time') }} > '2020-01-01'"`  <br /><br /> Metrics in the query are defined based on measures with different grains.  |
+❌ <br /> Invalid filter | `"{{ TimeDimension('metric_time', 'month') }} > '2020-01-01'"` <br /><br />  `metric_1` is not available at a month grain. |
 
-Invalid filters would be:
- 
-  * ` "{{ TimeDimension('metric_time') }} > '2020-01-01'"` &mdash; metrics in the query are defined based on measures with different grains.
 
-  * `"{{ TimeDimension('metric_time', 'month') }} > '2020-01-01'"` &mdash; `metric_1` is not available at a month grain.
+
+#### Multi-hop joins
+
+In cases where you need to query across multiple related tables (multi-hop joins), use the `entity_path` argument to specify the path between related entities. The following are examples of how you can define these joins:
+
+- In this example, you're querying the `location_name` dimension but specifying that it should be joined using the `order_id` field.
+	```sql
+	{{Dimension('location__location_name', entity_path=['order_id'])}}
+	```
+- In this example, the `salesforce_account_owner` dimension is joined to the `region` field, with the path going through `salesforce_account`.
+	```sql
+	{{ Dimension('salesforce_account_owner__region',['salesforce_account']) }}
+	```
+
 
 #### Query with order
 
 ```graphql
 mutation {
   createQuery(
-    environmentId: BigInt!
+    environmentId: "123"
     metrics: [{name: "order_total"}]
     groupBy: [{name: "metric_time", grain: MONTH}] 
     orderBy: [{metric: {name: "order_total"}}, {groupBy: {name: "metric_time", grain: MONTH}, descending:true}]
@@ -593,7 +593,7 @@ mutation {
 ```graphql
 mutation {
   createQuery(
-    environmentId: BigInt!
+    environmentId: "123"
     metrics: [{name:"food_order_amount"}, {name: "order_gross_profit"}]
     groupBy: [{name:"metric_time", grain: MONTH}, {name: "customer__customer_type"}]
     limit: 10 
@@ -603,34 +603,17 @@ mutation {
 }
 ```
 
-#### Query with just compiling SQL
+#### Query saved queries
 
-This takes the same inputs as the `createQuery` mutation.
-
-```graphql
-mutation {
-  compileSql(
-    environmentId: BigInt!
-    metrics: [{name:"food_order_amount"} {name:"order_gross_profit"}]
-    groupBy: [{name:"metric_time", grain: MONTH}, {name:"customer__customer_type"}]
-  ) {
-    sql
-  }
-}
-```
-
-#### Querying compile SQL with saved queries
-
-This query includes the field `savedQuery` and generates the SQL based on a predefined [saved query](/docs/build/saved-queries),rather than dynamically building it from a list of metrics and groupings. You can use this for frequently used queries.
+This takes the same inputs as the `createQuery` mutation, but includes the field `savedQuery`. You can use this for frequently used queries.
 
 ```graphql
 mutation {
-  compileSql(
-    environmentId: 200532
-    savedQuery: "new_customer_orders" # new field
+  createQuery(
+    environmentId: "123"
+    savedQuery: "new_customer_orders"
   ) {
     queryId
-    sql
   }
 }
 ```
@@ -639,30 +622,18 @@ mutation {
 When querying [saved queries](/docs/build/saved-queries),you can use parameters such as `where`, `limit`, `order`, `compile`, and so on. However, keep in mind that you can't access `metric` or `group_by` parameters in this context. This is because they are predetermined and fixed parameters for saved queries, and you can't change them at query time. If you would like to query more metrics or dimensions, you can build the query using the standard format.
 :::
 
-#### Create query with saved queries
+#### Query with just compiling SQL
 
-This takes the same inputs as the `createQuery` mutation, but includes the field `savedQuery`. You can use this for frequently used queries.
+This takes the same inputs as the `createQuery` mutation.
 
 ```graphql
 mutation {
-  createQuery(
-    environmentId: 200532
-    savedQuery: "new_customer_orders"  # new field
+  compileSql(
+    environmentId: "123"
+    metrics: [{name:"food_order_amount"} {name:"order_gross_profit"}]
+    groupBy: [{name:"metric_time", grain: MONTH}, {name:"customer__customer_type"}]
   ) {
-    queryId
+    sql
   }
 }
 ```
-
-### Multi-hop joins
-
-In cases where you need to query across multiple related tables (multi-hop joins), use the `entity_path` argument to specify the path between related entities. The following are examples of how you can define these joins:
-
-- In this example, you're querying the `location_name` dimension but specifying that it should be joined using the `order_id` field.
-	```sql
-	{{Dimension('location__location_name', entity_path=['order_id'])}}
-	```
-- In this example, the `salesforce_account_owner` dimension is joined to the `region` field, with the path going through `salesforce_account`.
-	```sql
-	{{ Dimension('salesforce_account_owner__region',['salesforce_account']) }}
-	```

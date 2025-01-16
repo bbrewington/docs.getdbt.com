@@ -252,6 +252,7 @@ The following sections provide examples of how to query metrics using the JDBC A
     - [Query with a time grain](#query-with-a-time-grain)
     - [Group by categorical dimension](#group-by-categorical-dimension)
     - [Query only a dimension](#query-only-a-dimension)
+    - [Query by all dimensions](#query-by-all-dimensions)
     - [Query with where filters](#query-with-where-filters)
     - [Query with a limit](#query-with-a-limit)
     - [Query with order by examples](#query-with-order-by-examples)
@@ -323,6 +324,19 @@ select * from {{
     semantic_layer.query(group_by=['customer__customer_type'])
                   }}
 ```
+
+### Query by all dimensions
+
+You can use the `semantic_layer.group_by_all()` endpoint to query by all valid dimensions.
+
+```sql
+select * from {{
+    semantic_layer.query_with_all_group_bys(metrics =['revenue','orders','food_orders'],
+    compile= True)
+}}
+```
+
+This returns all dimensions that are valid for the set of metrics in the request.
 
 ### Query with where filters
 
@@ -501,6 +515,12 @@ The JDBC API will use the saved query (`new_customer_orders`) as defined and app
 ### Query metric alias
 
 You can query metrics using aliases, which allow you to use simpler or more intuitive names for metrics instead of their full definitions. 
+
+```sql
+select * from {{
+    semantic_layer.query(metrics=[Metric("revenue", alias="metric_alias")])
+}}
+```
 
 For example, let's say your metric configuration includes an alias like `total_revenue_global` for the `order_total` metric. You can query the metric using the alias instead of the original name:
 
