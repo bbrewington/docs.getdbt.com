@@ -37,6 +37,17 @@ Each "batch" corresponds to a single bounded time period (by default, a single d
 
 This is a powerful abstraction that makes it possible for dbt to run batches [separately](#backfills), concurrently, and [retry](#retry) them independently.
 
+dbt's microbatch strategy uses the most efficient mechanism available for "full batch" replacement on each adapter. This can vary depending on the adapter:
+
+- `dbt-postgres`: Uses `merge` strategy, which performs "update" or "insert" operations.
+- `dbt-redshift`: Uses `delete+insert` strategy, which "inserts" or "replaces."
+- `dbt-snowflake`: Uses `delete+insert` strategy, which "inserts" or "replaces."
+- `dbt-bigquery`: Uses `insert_overwrite` strategy, which "inserts" or "replaces."
+- `dbt-spark`: Uses `insert_overwrite` strategy, which "inserts" or "replaces."
+- `dbt-databricks`: Uses `replace_where` strategy, which "inserts" or "replaces." 
+
+Check out the [supported incremental strategies by adapter](/docs/build/incremental-strategy#supported-incremental-strategies-by-adapter) for more info.
+
 ## Example
 
 A `sessions` model aggregates and enriches data that comes from two other models:
@@ -170,7 +181,7 @@ customers as (
 
 </Tabs>
 
-dbt will instruct the data platform to take the result of each batch query and insert, update, or replace the contents of the `analytics.sessions` table for the same day of data. To perform this operation, dbt will use the most efficient atomic mechanism for "full batch" replacement that is available on each data platform.
+dbt will instruct the data platform to take the result of each batch query and [insert, update, or replace](#how-microbatch-works) the contents of the `analytics.sessions` table for the same day of data. To perform this operation, dbt will use the most efficient atomic mechanism for "full batch" replacement that is available on each data platform. For details, see [How microbatch works](#how-microbatch-works).
 
 It does not matter whether the table already contains data for that day. Given the same input data, the resulting table is the same no matter how many times a batch is reprocessed.
 
