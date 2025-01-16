@@ -118,25 +118,23 @@ dbt ls --select "result:<status>+" state:modified+ --state ./<dbt-artifact-path>
 <DiscourseHelpFeed tags="node-selection"/>
 
 
-## Stateful selection
+## State selection
 
 One of the greatest underlying assumptions about dbt is that its operations should be **stateless** and **<Term id="idempotent" />**. That is, it doesn't matter how many times a model has been run before, or if it has ever been run before. It doesn't matter if you run it once or a thousand times. Given the same raw data, you can expect the same transformed result. A given run of dbt doesn't need to "know" about _any other_ run; it just needs to know about the code in the project and the objects in your database as they exist _right now_.
 
-That said, dbt does store "state"—a detailed, point-in-time view of project resources (also referred to as nodes), database objects, and invocation results—in the form of its [artifacts](/docs/deploy/artifacts). If you choose, dbt can use these artifacts to inform certain  operations. Crucially, the operations themselves are still stateless and <Term id="idempotent" />: given the same manifest and the same raw data, dbt will produce the same transformed result.
+That said, dbt does store "state" &mdash; a detailed, point-in-time view of project resources (also referred to as nodes), database objects, and invocation results &mdash; in the form of its [artifacts](/docs/deploy/artifacts). If you choose, dbt can use these artifacts to inform certain  operations. Crucially, the operations themselves are still stateless and <Term id="idempotent" />: given the same manifest and the same raw data, dbt will produce the same transformed result.
 
 dbt can leverage artifacts from a prior invocation as long as their file path is passed to the `--state` flag. This is a prerequisite for:
-- [The `state:` selector](/reference/node-selection/methods#the-state-method), whereby dbt can identify resources that are new or modified
+- [The `state` selector](/reference/node-selection/methods#state), whereby dbt can identify resources that are new or modified
 by comparing code in the current project against the state manifest.
 - [Deferring](/reference/node-selection/defer) to another environment, whereby dbt can identify upstream, unselected resources that don't exist in your current environment and instead "defer" their references to the environment provided by the state manifest.
 - The [`dbt clone` command](/reference/commands/clone), whereby dbt can clone nodes based on their location in the manifest provided to the `--state` flag.
 
-Together, the `state:` selector and deferral enable ["slim CI"](/best-practices/best-practice-workflows#run-only-modified-models-to-test-changes-slim-ci). We expect to add more features in future releases that can leverage artifacts passed to the `--state` flag.
+Together, the [`state`](/reference/node-selection/methods#state) selector and deferral enable ["slim CI"](/best-practices/best-practice-workflows#run-only-modified-models-to-test-changes-slim-ci). We expect to add more features in future releases that can leverage artifacts passed to the `--state` flag.
 
 ### Establishing state
 
 State and defer can be set by environment variables as well as CLI flags:
-
-<VersionBlock firstVersion="1.5" lastVersion="1.6">
 
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
@@ -147,17 +145,11 @@ In dbt v1.5, we deprecated the original syntax for state (`DBT_ARTIFACT_STATE_PA
 
 :::
 
-</VersionBlock>
-
-<VersionBlock firstVersion="1.6">
-
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
 - `--defer-state` or `DBT_DEFER_STATE`: file path to use for deferral only (optional)
 
 If `--defer-state` is not specified, deferral will use the artifacts supplied by `--state`. This enables more granular control in cases where you want to compare against logical state from one environment or past point in time, and defer to applied state from a different environment or point in time.
-
-</VersionBlock>
 
 If both the flag and env var are provided, the flag takes precedence.
 
@@ -201,36 +193,19 @@ The state and result selectors can also be combined in a single invocation of db
 dbt run --select "result:<status>+" state:modified+ --defer --state ./<dbt-artifact-path>
 ```
 
-### Fresh rebuilds
-
-Only supported by v1.1 or newer.
-
-When a job is selected, dbt Cloud will surface the artifacts from that job's most recent successful run. dbt will then use those artifacts to determine the set of fresh sources. In your job commands, you can signal to dbt to run and test only on these fresher sources and their children by including the `source_status:fresher+` argument. This requires both previous and current state to have the `sources.json` artifact be available. Or plainly said, both job states need to run `dbt source freshness`.
-
-As example:
-
-```bash
-# Command step order
-dbt source freshness
-dbt build --select "source_status:fresher+"
-```
-
-
-For more example commands, refer to [Pro-tips for workflows](/best-practices/best-practice-workflows#pro-tips-for-workflows).
-
 ### The "source_status" status
-
-Only supported by v1.1 or newer.
 
 Another element of job state is the `source_status` of a prior dbt invocation. After executing `dbt source freshness`, for example, dbt creates the `sources.json` artifact which contains execution times and `max_loaded_at` dates for dbt sources. You can read more about `sources.json` on the ['sources'](/reference/artifacts/sources-json) page. 
 
-The following dbt commands produce `sources.json` artifacts whose results can be referenced in subsequent dbt invocations:  
-- `dbt source freshness`
+The `dbt source freshness` command produces a `sources.json` artifact whose results can be referenced in subsequent dbt invocations. 
 
-After issuing one of the above commands, you can reference the source freshness results by adding a selector to a subsequent command as follows: 
+When a job is selected, dbt Cloud will surface the artifacts from that job's most recent successful run. dbt will then use those artifacts to determine the set of fresh sources. In your job commands, you can signal dbt to run and test only on the fresher sources and their children by including the `source_status:fresher+` argument. This requires both the previous and current states to have the `sources.json` artifact available. Or plainly said, both job states need to run `dbt source freshness`.
+
+After issuing the `dbt source freshness` command, you can reference the source freshness results by adding a selector to a subsequent command:
 
 ```bash
 # You can also set the DBT_ARTIFACT_STATE_PATH environment variable instead of the --state flag.
 dbt source freshness # must be run again to compare current to previous state
 dbt build --select "source_status:fresher+" --state path/to/prod/artifacts
 ```
+For more example commands, refer to [Pro-tips for workflows](/best-practices/best-practice-workflows#pro-tips-for-workflows).

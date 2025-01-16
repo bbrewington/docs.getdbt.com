@@ -17,7 +17,7 @@ To use our native integration with Azure DevOps in dbt Cloud, an account admin n
 4. [Connect Azure DevOps to your new app](#connect-azure-devops-to-your-new-app).
 5. [Add your Entra ID app to dbt Cloud](#add-your-azure-ad-app-to-dbt-cloud).
 
-Once the Microsoft Entra ID app is added to dbt Cloud, an account admin must also [connect a service user](#connecting-a-service-user) via OAuth, which will be used to power headless actions in dbt Cloud such as deployment runs and CI.
+Once the Microsoft Entra ID app is added to dbt Cloud, an account admin must also [connect a service user](/docs/cloud/git/setup-azure#connect-a-service-user) via OAuth, which will be used to power headless actions in dbt Cloud such as deployment runs and CI.
 
 
 Once the Microsoft Entra ID app is added to dbt Cloud and the service user is connected, then dbt Cloud developers can personally authenticate in dbt Cloud from Azure DevOps. For more on this, see [Authenticate with Azure DevOps](/docs/cloud/git/authenticate-azure).
@@ -89,7 +89,7 @@ An Azure admin will need one of the following permissions in both the Microsoft 
 - Azure Service Administrator
 - Azure Co-administrator
 
-If your Azure DevOps account is connected to Entra ID, then you can proceed to [Connecting a service user](#connecting-a-service-user). However, if you're just getting set up, connect Azure DevOps to the Microsoft Entra ID app you just created:
+If your Azure DevOps account is connected to Entra ID, then you can proceed to [Connect a service user](#connect-a-service-user). However, if you're just getting set up, connect Azure DevOps to the Microsoft Entra ID app you just created:
 
 1. From your Azure DevOps account, select **Organization settings** in the bottom left.
 2. Navigate to Microsoft Entra ID.
@@ -112,7 +112,7 @@ Once you connect your Microsoft Entra ID app and Azure DevOps, you need to provi
 4. Complete the form:
     - **Azure DevOps Organization:** Must match the name of your Azure DevOps organization exactly. Do not include the `dev.azure.com/` prefix in this field. ✅ Use `my-devops-org` ❌ Avoid `dev.azure.com/my-devops-org`
     - **Application (client) ID:** Found in the Microsoft Entra ID app.
-    - **Client Secrets:** Copy the **Value** field in the Microsoft Entra ID app client secrets and paste it in the **Client Secret** field in dbt Cloud. Entra ID admins are responsible for the Entra ID app secret expiration and dbt Admins should not the expiration date for rotation.
+    - **Client Secrets:** Copy the **Value** field in the Microsoft Entra ID app client secrets and paste it in the **Client Secret** field in dbt Cloud. Entra ID admins are responsible for the Entra ID app secret expiration and dbt Admins should note the expiration date for rotation.
     - **Directory(tenant) ID:** Found in the Microsoft Entra ID app.
         <Lightbox src="/img/docs/dbt-cloud/connecting-azure-devops/AzureDevopsAppdbtCloud.gif" title="Adding a Microsoft Entra ID app to dbt Cloud"/>
 
@@ -155,7 +155,7 @@ The service user's permissions will also power which repositories a team can sel
 
 While it's common to enforce multi-factor authentication (MFA) for normal user accounts, service user authentication must not need an extra factor. If you enable a second factor for the service user, this can interrupt production runs and cause a failure to clone the repository. In order for the OAuth access token to work, the best practice is to remove any more burden of proof of identity for service users.
 
-As a result, MFA must be explicity disabled in the Office 365 or Microsoft Entra ID administration panel for the service user.  Just having it "un-connected" will not be sufficient, as dbt Cloud will be prompted to set up MFA instead of allowing the credentials to be used as intended.
+As a result, MFA must be explicitly disabled in the Office 365 or Microsoft Entra ID administration panel for the service user.  Just having it "un-connected" will not be sufficient, as dbt Cloud will be prompted to set up MFA instead of allowing the credentials to be used as intended.
 
 
 **To disable MFA for a single user using the Office 365 Administration console:**
@@ -200,7 +200,7 @@ To re-enable MFA for the user, select them again and click **Enable**. Note, you
 
 **Token (where applicable - API only):**
 - PublisherSecurity for access to all projects
-- PublisherSecurity/<azure_devops_project_object_id> for per project access
+- PublisherSecurity/&lt;azure_devops_project_object_id&gt; for per project access
 
 **UI/API/CLI:** API/CLI only
 
@@ -233,7 +233,7 @@ az devops security permission update --organization https://dev.azure.com/<org_n
 
 **Token (where applicable - API only):**
 - PublisherSecurity for access to all projects
-- PublisherSecurity/<azure_devops_project_object_id> for per project access
+- PublisherSecurity/&lt;azure_devops_project_object_id&gt; for per project access
 
 **UI/API/CLI:** API/CLI only
 
@@ -268,7 +268,7 @@ az devops security permission update --organization https://dev.azure.com/<org_n
 
 **Token (where applicable - API only):**
 - PublisherSecurity for access to all projects
-- PublisherSecurity/<azure_devops_project_object_id> for per project access
+- PublisherSecurity/&lt;azure_devops_project_object_id&gt; for per project access
 
 **UI/API/CLI:** API/CLI only
 
@@ -305,8 +305,8 @@ az devops security permission update --organization https://dev.azure.com/<org_n
 
 **Token (where applicable - API only):**
 - repoV2 for access to all projects
-- repoV2/<azure_devops_project_object_id> for per project access
-- repoV2/<azure_devops_project_object_id>/<azure_devops_repository_object_id> for per repo access
+- repoV2/&lt;azure_devops_project_object_id&gt; for per project access
+- repoV2/&lt;azure_devops_project_object_id&gt;/&lt;azure_devops_repository_object_id&gt; for per repo access
 
 
 **UI/API/CLI:** UI, API, and CLI
@@ -345,8 +345,8 @@ az devops security permission update --organization https://dev.azure.com/<org_n
 
 **Token (where applicable - API only):**
 - repoV2 for access to all projects
-- repoV2/<azure_devops_project_object_id> for access to a single project at a time
-- repoV2/<azure_devops_project_object_id>/<azure_devops_repository_object_id> for access to a single repo at a time
+- repoV2/&lt;azure_devops_project_object_id&gt; for access to a single project at a time
+- repoV2/&lt;azure_devops_project_object_id&gt;/&lt;azure_devops_repository_object_id&gt; for access to a single repo at a time
 
 
 **UI/API/CLI:** UI, API, and CLI
@@ -372,6 +372,16 @@ A dbt Cloud account admin with access to the service user's Azure DevOps account
 <Lightbox src="/img/docs/dbt-cloud/connecting-azure-devops/azure-service-user.png" title="Connecting an Azure Service User"/>
 
 Once connected, dbt Cloud displays the email address of the service user so you know which user's permissions are enabling headless actions in deployment environments. To change which account is connected, disconnect the profile in dbt Cloud, sign into the alternative Azure DevOps service account, and re-link the account in dbt Cloud.
+
+### Using Azure AD for SSO with dbt Cloud and Microsoft tools
+
+If you're using Azure AD for SSO with dbt Cloud and Microsoft tools, the SSO flow may sometimes direct your account admin to their personal user account instead of the service user. If this happens, follow these steps to resolve it:
+
+1. Sign in to the service user's Azure DevOps account (ensure they are also connected to dbt Cloud through SSO).
+2. When connected to dbt Cloud, sign out of Azure AD through the [Azure portal](https://portal.azure.com/).
+3. Disconnect the service user in dbt Cloud, and follow the steps to set it up again.
+4. You should then be prompted to enter service user credentials.
+
 
 :::info Personal Access Tokens (PATs)
 dbt Cloud leverages the service user to generate temporary access tokens called [PATs](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?toc=%2Fazure%2Fdevops%2Fmarketplace-extensibility%2Ftoc.json&view=azure-devops&tabs=Windows). 

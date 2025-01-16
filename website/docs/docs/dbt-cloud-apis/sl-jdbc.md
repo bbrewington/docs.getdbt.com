@@ -5,14 +5,6 @@ description: "Integrate and use the JDBC API to query your metrics."
 tags: [Semantic Layer, API]
 ---
 
-<VersionBlock lastVersion="1.5">
-
-import DeprecationNotice from '/snippets/_sl-deprecation-notice.md';
-
-<DeprecationNotice />
- 
-</VersionBlock>
-
 The dbt Semantic Layer Java Database Connectivity (JDBC) API enables users to query metrics and dimensions using the JDBC protocol, while also providing standard metadata functionality. 
 
 A JDBC driver is a software component enabling a Java application to interact with a data platform. Here's some more information about our JDBC API:
@@ -64,7 +56,7 @@ The Semantic Layer JDBC API has built-in metadata calls which can provide a user
 
 Expand the following toggles for examples and metadata commands:
 
-<detailsToggle alt_header="Fetch defined metrics">
+<Expandable alt_header="Fetch defined metrics">
 
 You can use this query to fetch all defined metrics in your dbt project:
 
@@ -73,9 +65,9 @@ select * from {{
 	semantic_layer.metrics() 
 }}
 ```
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch dimension for a metric">
+<Expandable alt_header="Fetch dimension for a metric">
 
 You can use this query to fetch all dimensions for a metric.
 
@@ -85,9 +77,9 @@ Note, metrics is a required argument that lists one or multiple metrics in it.
 select * from {{ 
     semantic_layer.dimensions(metrics=['food_order_amount'])}}
 ```
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch dimension values">
+<Expandable alt_header="Fetch dimension values">
 
 You can use this query to fetch dimension values for one or multiple metrics and a single dimension.
 
@@ -97,9 +89,9 @@ Note, metrics is a required argument that lists one or multiple metrics, and a s
 select * from {{ 
 semantic_layer.dimension_values(metrics=['food_order_amount'], group_by=['customer__customer_name'])}}
 ```
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch granularities for metrics">
+<Expandable alt_header="Fetch granularities for metrics">
 
 You can use this query to fetch queryable granularities for a list of metrics. 
 
@@ -111,9 +103,9 @@ select * from {{
     semantic_layer.queryable_granularities(metrics=['food_order_amount', 'order_gross_profit'])}}
 ```
 
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch available metrics given dimensions">
+<Expandable alt_header="Fetch available metrics given dimensions">
 
 You can use this query to fetch available metrics given dimensions. This command is essentially the opposite of getting dimensions given a list of metrics.
 
@@ -125,9 +117,9 @@ select * from {{
 }}
 ```
 
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch granularities for all time dimensions">
+<Expandable alt_header="Fetch granularities for all time dimensions">
 
 You can use this example query to fetch available granularities for all time dimensions (the similar queryable granularities API call only returns granularities for the primary time dimensions for metrics).
 
@@ -141,9 +133,9 @@ select NAME, QUERYABLE_GRANULARITIES from {{
 }}
 ```
 
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="Fetch primary time dimension names">
+<Expandable alt_header="Fetch primary time dimension names">
 
 It may be useful in your application to expose the names of the time dimensions that represent metric_time or the common thread across all metrics.
 
@@ -155,9 +147,44 @@ select * from {{
 }}
 ```
 
-</detailsToggle>
+</Expandable>
 
-<detailsToggle alt_header="List saved queries">
+<Expandable alt_header="Fetch metrics by substring search">
+
+You can filter your metrics to include only those that contain a specific substring (sequence of characters contained within a larger string (text)). Use the `search` argument to specify the substring you want to match.
+
+```sql
+select * from {{ semantic_layer.metrics(search='order') }}
+```
+
+If no substring is provided, the query returns all metrics.
+
+</Expandable> 
+
+<Expandable alt_header="Paginate metadata calls">
+
+In the case when you don't want to return the full result set from a metadata call, you can paginate the results for both `semantic_layer.metrics()` and `semantic_layer.dimensions()` calls using the `page_size` and `page_number` parameters.
+
+- `page_size`: This is an optional variable which sets the number of records per page. If left as None, there is no page limit.
+- `page_number`: This is an optional variable which specifies the page number to retrieve. Defaults to `1` (first page) if not specified.
+
+Examples:
+
+```sql
+-- Retrieves the 5th page with a page size of 10 metrics
+select * from {{ semantic_layer.metrics(page_size=10, page_number=5) }}
+
+-- Retrieves the 1st page with a page size of 10 metrics
+select * from {{ semantic_layer.metrics(page_size=10) }}
+
+-- Retrieves all metrics without pagination
+select * from {{ semantic_layer.metrics() }}
+```
+
+You can use the same pagination parameters for `semantic_layer.dimensions(...)`.
+</Expandable> 
+
+<Expandable alt_header="List saved queries">
 
 You can use this example query to list all available saved queries in your dbt project.
 
@@ -173,7 +200,7 @@ select * from semantic_layer.saved_queries()
 | NAME | DESCRIPTION | LABEL | METRICS | GROUP_BY | WHERE_FILTER |
 ```
 
-</detailsToggle>
+</Expandable>
 
 <!--
 <Tabs>
@@ -492,7 +519,7 @@ select * from {{
 semantic_layer.query(metrics=['food_order_amount', 'order_gross_profit'],
   group_by=[Dimension('metric_time')],
   limit=10,
-  order_by=[-'order_gross_profit'])
+  order_by=['-order_gross_profit'])
   }}
 ```
 
@@ -550,28 +577,41 @@ select * from {{ semantic_layer.query(saved_query="new_customer_orders", limit=5
 
 The JDBC API will use the saved query (`new_customer_orders`) as defined and apply a limit of 5 records.
 
+### Multi-hop joins
+
+In cases where you need to query across multiple related tables (multi-hop joins), use the `entity_path` argument to specify the path between related entities. The following are examples of how you can define these joins:
+
+- In this example, you're querying the `location_name` dimension but specifying that it should be joined using the `order_id` field.
+	```sql
+	{{Dimension('location__location_name', entity_path=['order_id'])}}
+	```
+- In this example, the `salesforce_account_owner` dimension is joined to the `region` field, with the path going through `salesforce_account`.
+	```sql
+	{{ Dimension('salesforce_account_owner__region',['salesforce_account']) }}
+	```
+
 ## FAQs
 
 <FAQ path="Troubleshooting/sl-alpn-error" />
 
-<detailsToggle alt_header="Why do some dimensions use different syntax, like `metric_time` versus `Dimension('metric_time')`?">
+<DetailsToggle alt_header="Why do some dimensions use different syntax, like `metric_time` versus `Dimension('metric_time')`?">
 When you select a dimension on its own, such as `metric_time` you can use the shorthand method which doesn't need the “Dimension” syntax. 
 
 However, when you perform operations on the dimension, such as adding granularity, the object syntax `[Dimension('metric_time')` is required.
-</detailsToggle>
+</DetailsToggle>
 
-<detailsToggle alt_header="What does the double underscore `'__'` syntax in dimensions mean?">
+<DetailsToggle alt_header="What does the double underscore `'__'` syntax in dimensions mean?">
 
 The double underscore `"__"` syntax indicates a mapping from an entity to a dimension, as well as where the dimension is located. For example, `user__country` means someone is looking at the `country` dimension from the `user` table.
-</detailsToggle>
+</DetailsToggle>
 
-<detailsToggle alt_header="What is the default output when adding granularity?">
+<DetailsToggle alt_header="What is the default output when adding granularity?">
 
 The default output follows the format `{{time_dimension_name}__{granularity_level}}`. 
 
 So for example, if the `time_dimension_name` is `ds` and the granularity level is yearly, the output is `ds__year`.
 
-</detailsToggle>
+</DetailsToggle>
 
 ## Related docs
 

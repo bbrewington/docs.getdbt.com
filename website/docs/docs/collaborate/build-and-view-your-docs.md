@@ -24,7 +24,7 @@ To set up a job to generate docs:
 1. In the top left, click **Deploy** and select **Jobs**.
 2. Create a new job or select an existing job and click **Settings**.
 3. Under **Execution Settings**, select **Generate docs on run** and click **Save**.
-   <Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/documentation-job-execution-settings.png" width="65%" title="Setting up a job to generate documentation"/>
+   <Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/documentation-job-execution-settings.png" width="100%" title="Setting up a job to generate documentation"/>
 
 *Note, for dbt Docs users you need to configure the job to generate docs when it runs, then manually link that job to your project. Proceed to [configure project documentation](#configure-project-documentation) so your project generates the documentation when this job runs.*
 
@@ -51,12 +51,11 @@ dbt Docs, available on developer plans or dbt Core users, generates a website fr
 
 You configure project documentation to generate documentation when the job you set up in the previous section runs. In the project settings, specify the job that generates documentation artifacts for that project. Once you configure this setting, subsequent runs of the job will automatically include a step to generate documentation.
 
-1. Click the gear icon in the top right.
-2. Select **Account Settings**.
-3. Navigate to **Projects** and select the project that needs documentation.
-4. Click **Edit**.
-5. Under **Artifacts**, select the job that should generate docs when it runs and click **Save**.
-   <Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/documentation-project-details.png" width="55%" title="Configuring project documentation"/>
+1. From dbt Cloud, click on your account name in the left side menu and select **Account settings**.
+2. Navigate to **Projects** and select the project that needs documentation.
+3. Click **Edit**.
+4. Under **Artifacts**, select the job that should generate docs when it runs and click **Save**.
+   <Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/documentation-project-details.png" width="100%" title="Configuring project documentation"/>
 
 :::tip Use dbt Explorer for a richer documentation experience
 For a  richer and more interactive experience, try out [dbt Explorer](/docs/collaborate/explore-projects), available on [Team or Enterprise plans](https://www.getdbt.com/pricing/). It includes map layers of your DAG, keyword search, interacts with the IDE, model performance, project recommendations, and more.
@@ -65,10 +64,6 @@ For a  richer and more interactive experience, try out [dbt Explorer](/docs/coll
 ### Generating documentation
 
 To generate documentation in the dbt Cloud IDE, run the `dbt docs generate` command in the **Command Bar** in the dbt Cloud IDE. This command will generate the documentation for your dbt project as it exists in development in your IDE session.
-
-After generating your documentation, you can click **Explore** in the navigation. This will take you to <a href="https://docs.getdbt.com/docs/collaborate/explore-projects">dbt Explorer</a>, where you can view your project's resources and their lineage.
-
-<Lightbox src="/img/docs/dbt-cloud/explore-nav.jpg" width="90%" title="Access dbt Explorer from dbt Cloud by clicking Explore in the navigation."/>
 
 After running `dbt docs generate` in the dbt Cloud IDE, click the icon above the file tree, to see the latest version of your documentation rendered in a new browser window.
 

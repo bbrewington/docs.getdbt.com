@@ -40,7 +40,6 @@ To leverage dbt Mesh, you need the following:
 
 - You must have a [dbt Cloud Enterprise account](https://www.getdbt.com/get-started/enterprise-contact-pricing) <Lifecycle status="enterprise"/>
 - You have access to a cloud data platform, permissions to load the sample data tables, and dbt Cloud permissions to create new projects. 
-- Set your development and deployment [environments](/docs/dbt-cloud-environments) to use dbt [version](/docs/dbt-versions/core) 1.6 or later. You can also opt to go versionless and select [Keep on latest version of](/docs/dbt-versions/upgrade-dbt-version-in-cloud#keep-on-latest-version) to always get the most recent features and functionality.
 - This guide uses the Jaffle Shop sample data, including `customers`, `orders`, and `payments` tables. Follow the provided instructions to load this data into your respective data platform:
   - [Snowflake](https://docs.getdbt.com/guides/snowflake?step=3)
   - [Databricks](https://docs.getdbt.com/guides/databricks?step=3)
@@ -95,7 +94,7 @@ To set a production environment:
 6. Click **Test Connection** to confirm the deployment connection.
 6. Click **Save** to create a production environment.
 
-<Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/prod-settings.jpg" width="70%" title="Set your production environment as the default environment in your Environment Settings"/>
+<Lightbox src="/img/docs/dbt-cloud/using-dbt-cloud/prod-settings-1.png" width="100%" title="Set your production environment as the default environment in your Environment Settings"/>
 
 
 ## Set up a foundational project
@@ -300,6 +299,8 @@ To run your first deployment dbt Cloud job, you will need to create a new dbt Cl
 
 5. After the run is complete, click **Explore** from the upper menu bar. You should now see your lineage, tests, and documentation coming through successfully.
 
+For details on how dbt Cloud uses metadata from the Staging environment to resolve references in downstream projects, check out the section on [Staging with downstream dependencies](/docs/collaborate/govern/project-dependencies#staging-with-downstream-dependencies).
+
 ## Reference a public model in your downstream project
 
 In this section, you will set up the downstream project, "Jaffle | Finance", and [cross-project reference](/docs/collaborate/govern/project-dependencies) the `fct_orders` model from the foundational project. Navigate to the **Develop** page to set up our project:
@@ -341,11 +342,11 @@ Now that you've set up the foundational project, let's start building the data a
     version: 2
 
     sources:
-    - name: stripe
+      - name: stripe
         database: raw
         schema: stripe 
         tables:
-        - name: payment
+          - name: payment
     ```
 
     </File>
@@ -363,8 +364,8 @@ Now that you've set up the foundational project, let's start building the data a
     final as (
         select 
             id as payment_id,
-            "orderID" as order_id,
-            "paymentMethod" as payment_method,
+            orderID as order_id,
+            paymentMethod as payment_method,
             amount,
             created as payment_date 
         from payments
@@ -437,16 +438,19 @@ How can you enhance resilience and add guardrails to this type of multi-project 
 ### Set up model contracts
 As part of the Data Analytics team, you may want to ensure the `fct_orders` model is reliable for downstream users, like the Finance team.
 
-1. Navigate to `models/core/core.yml` and under the `fct_orders` model, add a data contract to enforce reliability:
+1. Navigate to `models/core/core.yml` and under the `fct_orders` model before the `columns:` section, add a data contract to enforce reliability:
 
 ```yaml
 models:
   - name: fct_orders
     access: public
-    description: "Customer and order details"
+    description: “Customer and order details”
     config:
       contract:
         enforced: true
+    columns:
+      - name: order_id
+        .....
 ```
 
 2. Test what would happen if this contract were violated. In `models/core/fct_orders.sql`, comment out the `orders.status` column and click **Build** to try building the model.
@@ -457,10 +461,10 @@ models:
 ### Set up model versions
 In this section, you will set up model versions by the Data Analytics team as they upgrade the `fct_orders` model while offering backward compatibility and a migration notice to the downstream Finance team.
 
-1. Rename the existing model file from` models/core/fct_orders.sql` to `models/core/fct_orders_v1.sql`.
+1. Rename the existing model file from `models/core/fct_orders.sql` to `models/core/fct_orders_v1.sql`.
 2. Create a new file `models/core/fct_orders_v2.sql` and adjust the schema:
-   - Comment out `orders.status`  
-   - Add a new field, `is_return` to indicate if an order was returned.
+   - Comment out `o.status` in the `final` CTE.
+   - Add a new field, `case when o.status = 'returned' then true else false end as is_return` to indicate if an order was returned.
 3. Then, add the following to your `models/core/core.yml` file:
    - The `is_return` column
    - The two model `versions`
@@ -633,6 +637,7 @@ Here are some additional resources to help you continue your journey:
 
 - [How we build our dbt mesh projects](https://docs.getdbt.com/best-practices/how-we-mesh/mesh-1-intro)
 - [dbt Mesh FAQs](https://docs.getdbt.com/best-practices/how-we-mesh/mesh-5-faqs)
+- [Implement dbt Mesh with the Semantic Layer](/docs/use-dbt-semantic-layer/sl-faqs#how-can-i-implement-dbt-mesh-with-the-dbt-semantic-layer)
 - [Cross-project references](/docs/collaborate/govern/project-dependencies#how-to-write-cross-project-ref)
 - [dbt Explorer](/docs/collaborate/explore-projects)
 
