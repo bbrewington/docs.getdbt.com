@@ -138,8 +138,6 @@ State and defer can be set by environment variables as well as CLI flags:
 
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
-- `--state` or `DBT_STATE`: file path
-- `--defer` or `DBT_DEFER`: boolean
 - `--defer-state` or `DBT_DEFER_STATE`: file path to use for deferral only (optional)
 
 If `--defer-state` is not specified, deferral will use the artifacts supplied by `--state`. This enables more granular control in cases where you want to compare against logical state from one environment or past point in time, and defer to applied state from a different environment or point in time.
