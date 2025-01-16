@@ -204,7 +204,7 @@ When a job is selected, dbt Cloud will surface the artifacts from that job's mos
 After issuing the `dbt source freshness` command, you can reference the source freshness results by adding a selector to a subsequent command:
 
 ```bash
-# You can also set the DBT_ARTIFACT_STATE_PATH environment variable instead of the --state flag.
+# You can also set the DBT_STATE environment variable instead of the --state flag.
 dbt source freshness # must be run again to compare current to previous state
 dbt build --select "source_status:fresher+" --state path/to/prod/artifacts
 ```
