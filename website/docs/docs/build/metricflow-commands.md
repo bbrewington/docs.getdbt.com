@@ -77,7 +77,7 @@ The following table lists the commands compatible with the dbt Cloud IDE and dbt
 | [`list dimension-values`](#list-dimension-values) | List dimensions with metrics. | ✅ | ✅ |
 | [`list entities`](#list-entities) | Lists all unique entities.  |  ✅  | ✅ |
 | [`list saved-queries`](#list-saved-queries) | Lists available saved queries. Use the `--show-exports` flag to display each export listed under a saved query or `--show-parameters` to show the full query parameters each saved query uses. |  ✅ | ✅ |
-| [`query`](#query) | Query metrics, saved queries, and dimensions you want to see in the command line interface. Refer to [query examples](#query-examples) for examples on how use to query metrics and dimensions, like querying metrics, using `where` filter, adding an `order`, and more.  |  ✅ | ✅ |
+| [`query`](#query) | Query metrics, saved queries, and dimensions you want to see in the command line interface. Refer to [query examples](#query-examples) to query metrics and dimensions (such as querying metrics, using the `where` filter, adding an `order`, and more).  |  ✅ | ✅ |
 | [`validate`](#validate) | Validates semantic model configurations. |  ✅ | ✅ |
 | [`export`](#export) |  Runs exports for a singular saved query for testing and generating exports in your development environment. You can also use the `--select` flag to specify particular exports from a saved query. |  ❌ | ✅ |
 | [`export-all`](#export-all) | Runs exports for multiple saved queries at once, saving time and effort. |  ❌ | ✅ |
