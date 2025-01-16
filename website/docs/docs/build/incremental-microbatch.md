@@ -37,14 +37,16 @@ Each "batch" corresponds to a single bounded time period (by default, a single d
 
 This is a powerful abstraction that makes it possible for dbt to run batches [separately](#backfills), concurrently, and [retry](#retry) them independently.
 
+### Adapter-specific behavior
+
 dbt's microbatch strategy uses the most efficient mechanism available for "full batch" replacement on each adapter. This can vary depending on the adapter:
 
-- `dbt-postgres`: Uses `merge` strategy, which performs "update" or "insert" operations.
-- `dbt-redshift`: Uses `delete+insert` strategy, which "inserts" or "replaces."
-- `dbt-snowflake`: Uses `delete+insert` strategy, which "inserts" or "replaces."
-- `dbt-bigquery`: Uses `insert_overwrite` strategy, which "inserts" or "replaces."
-- `dbt-spark`: Uses `insert_overwrite` strategy, which "inserts" or "replaces."
-- `dbt-databricks`: Uses `replace_where` strategy, which "inserts" or "replaces." 
+- `dbt-postgres`: Uses the `merge` strategy, which performs "update" or "insert" operations.
+- `dbt-redshift`: Uses the `delete+insert` strategy, which "inserts" or "replaces."
+- `dbt-snowflake`: Uses the `delete+insert` strategy, which "inserts" or "replaces."
+- `dbt-bigquery`: Uses the `insert_overwrite` strategy, which "inserts" or "replaces."
+- `dbt-spark`: Uses the `insert_overwrite` strategy, which "inserts" or "replaces."
+- `dbt-databricks`: Uses the `replace_where` strategy, which "inserts" or "replaces." 
 
 Check out the [supported incremental strategies by adapter](/docs/build/incremental-strategy#supported-incremental-strategies-by-adapter) for more info.
 
