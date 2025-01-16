@@ -423,7 +423,7 @@ mf query --metrics order_total --group-by order_id__is_food_order --where "{{ Di
 ```
 
 Notes:
-- The type of dimension changes the syntax you use. So if you have a date field, you must use `TimeDimension` instead of `Dimension`.
+- The type of dimension changes the syntax you use. So if you have a date field, use `TimeDimension` instead of `Dimension`.
 - When you query a dimension, you need to specify the primary entity for that dimension. In the example just shared, the primary entity is `order_id`.
 
 **Result**
