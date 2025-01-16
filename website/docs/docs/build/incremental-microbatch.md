@@ -183,7 +183,7 @@ customers as (
 
 </Tabs>
 
-dbt will instruct the data platform to take the result of each batch query and [insert, update, or replace](#how-microbatch-works) the contents of the `analytics.sessions` table for the same day of data. To perform this operation, dbt will use the most efficient atomic mechanism for "full batch" replacement that is available on each data platform. For details, see [How microbatch works](#how-microbatch-works).
+dbt will instruct the data platform to take the result of each batch query and [insert, update, or replace](#adapter-specific-behavior) the contents of the `analytics.sessions` table for the same day of data. To perform this operation, dbt will use the most efficient atomic mechanism for "full batch" replacement that is available on each data platform. For details, see [How microbatch works](#how-microbatch-works).
 
 It does not matter whether the table already contains data for that day. Given the same input data, the resulting table is the same no matter how many times a batch is reprocessed.
 
