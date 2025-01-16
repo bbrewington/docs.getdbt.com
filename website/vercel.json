@@ -3642,6 +3642,11 @@
       "permanent": true
     },
     {
+      "source": "/terms/reverse-etl",
+      "destination": "https://www.getdbt.com/blog/#",
+      "permanent": true
+    },
+    {
       "source": "/glossary",
       "destination": "https://www.getdbt.com/blog",
       "permanent": true
