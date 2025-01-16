@@ -411,7 +411,7 @@ mf query --metrics order_total --group-by order_id__is_food_order --limit 10 --o
 
 ### Add where clause
 
-You can further filter the data set by adding a `where` clause to your query. The following example shows you how to query the `order_total` metric, grouped by `is_food_order` with multiple where statements (orders that are food orders and orders from the week starting on or after Feb 1st, 2024). 
+You can further filter the data set by adding a `where` clause to your query. The following example shows you how to query the `order_total` metric, grouped by `is_food_order` with multiple `where` statements (orders that are food orders and orders from the week starting on or after Feb 1st, 2024). 
 
 **Query**
 ```bash
