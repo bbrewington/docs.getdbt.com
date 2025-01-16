@@ -411,16 +411,20 @@ mf query --metrics order_total --group-by order_id__is_food_order --limit 10 --o
 
 ### Add where clause
 
-You can further filter the data set by adding a `where` clause to your query. The following example shows you how to query the `order_total` metric, grouped by `is_food_order` with multiple where statements (orders that are food orders and orders from the week starting on or after Feb 1st, 2024). Note that when you query a dimension, you need to specify the primary entity for that dimension. In the following example, the primary entity is `order_id`.
+You can further filter the data set by adding a `where` clause to your query. The following example shows you how to query the `order_total` metric, grouped by `is_food_order` with multiple where statements (orders that are food orders and orders from the week starting on or after Feb 1st, 2024). 
 
 **Query**
 ```bash
 # In dbt Cloud 
-dbt sl query --metrics order_total --group-by order_id__is_food_order --where "{{ Dimension('order_id__is_food_order') }} = True and metric_time__week >= '2024-02-01'"
+dbt sl query --metrics order_total --group-by order_id__is_food_order --where "{{ Dimension('order_id__is_food_order') }} = True and {{ TimeDimension('metric_time', 'week') }} >= '2024-02-01'"
 
 # In dbt Core
-mf query --metrics order_total --group-by order_id__is_food_order --where "{{ Dimension('order_id__is_food_order') }} = True and metric_time__week >= '2024-02-01'" 
+mf query --metrics order_total --group-by order_id__is_food_order --where "{{ Dimension('order_id__is_food_order') }} = True and TimeDimension('metric_time', 'week') }} >= '2024-02-01'"
 ```
+
+Notes:
+- The type of dimension changes the syntax you use. So if you have a date field, you must use `TimeDimension` instead of `Dimension`.
+- When you query a dimension, you need to specify the primary entity for that dimension. In the example just shared, the primary entity is `order_id`.
 
 **Result**
 ```bash
