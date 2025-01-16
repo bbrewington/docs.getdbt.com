@@ -138,13 +138,6 @@ State and defer can be set by environment variables as well as CLI flags:
 
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
-
-:::warning Syntax deprecated
-
-In dbt v1.5, we deprecated the original syntax for state (`DBT_ARTIFACT_STATE_PATH`) and defer (`DBT_DEFER_TO_STATE`). Although dbt supports backward compatibility with the old syntax, we will remove it in a future release that we have not yet determined.
-
-:::
-
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
 - `--defer-state` or `DBT_DEFER_STATE`: file path to use for deferral only (optional)
@@ -156,6 +149,12 @@ If both the flag and env var are provided, the flag takes precedence.
 #### Notes:
 - The `--state` artifacts must be of schema versions that are compatible with the currently running dbt version.
 - These are powerful, complex features. Read about [known caveats and limitations](/reference/node-selection/state-comparison-caveats) to state comparison.
+
+:::warning Syntax deprecated
+
+In dbt v1.5, we deprecated the original syntax for state (`DBT_ARTIFACT_STATE_PATH`) and defer (`DBT_DEFER_TO_STATE`). Although dbt supports backward compatibility with the old syntax, we will remove it in a future release that we have not yet determined.
+
+:::
 
 ### The "result" status
 
