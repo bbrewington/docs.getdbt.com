@@ -3643,7 +3643,7 @@
     },
     {
       "source": "/terms/reverse-etl",
-      "destination": "https://www.getdbt.com/blog/#",
+      "destination": "https://www.getdbt.com/blog/reverse-etl-playbook",
       "permanent": true
     },
     {
