@@ -327,7 +327,7 @@ select * from {{
 
 ### Query by all dimensions
 
-You can use the `semantic_layer.group_by_all()` endpoint to query by all valid dimensions.
+You can use the `semantic_layer.query_with_all_group_bys` endpoint to query by all valid dimensions.
 
 ```sql
 select * from {{
