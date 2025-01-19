@@ -247,7 +247,7 @@ dbt-teradata 1.8.0 and later versions support unit tests, enabling you to valida
 
 ## Limitations
 
-### Browser Authentication
+### Browser authentication
 When running a dbt job with logmech set to "browser", the initial authentication opens a browser window where you must enter your username and password.<br>
 After authentication, this window remains open, requiring you to manually switch back to the dbt console.<br>
 For every subsequent connection, a new browser tab briefly opens, displaying the message "TERADATA BROWSER AUTHENTICATION COMPLETED," and silently reuses the existing session.<br>
