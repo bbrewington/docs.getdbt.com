@@ -210,7 +210,7 @@ For using cross-DB macros, teradata-utils as a macro namespace will not be used,
   ##### <a name="hash"></a>hash
 
   `Hash` macro needs an `md5` function implementation. Teradata doesn't support `md5` natively. You need to install a User Defined Function (UDF) and optionally specify `md5_udf` [variable](/docs/build/project-variables).  <br> 
-   If not specified the code defaults to using `GLOBAL_FUNCTIONS.hash_md5`. See below instructions on how to install the custom UDF:
+   If not specified the code defaults to using `GLOBAL_FUNCTIONS.hash_md5`. See the following instructions on how to install the custom UDF:
   1. Download the md5 UDF implementation from Teradata (registration required): https://downloads.teradata.com/download/extensibility/md5-message-digest-udf.
   1. Unzip the package and go to `src` directory.
   1. Start up `bteq` and connect to your database.
