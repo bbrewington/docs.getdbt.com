@@ -248,12 +248,12 @@ dbt-teradata 1.8.0 and later versions support unit tests, enabling you to valida
 ## Limitations
 
 ### Browser authentication
-When running a dbt job with logmech set to "browser", the initial authentication opens a browser window where you must enter your username and password.<br>
-After authentication, this window remains open, requiring you to manually switch back to the dbt console.<br>
-For every subsequent connection, a new browser tab briefly opens, displaying the message "TERADATA BROWSER AUTHENTICATION COMPLETED," and silently reuses the existing session.<br>
-However, the focus stays on the browser window, so you’ll need to manually switch back to the dbt console each time.<br>
-This behavior is the default functionality of the teradatasql driver and cannot be avoided at this time.<br>
-To prevent session expiration and the need to re-enter credentials, ensure the authentication browser window stays open until the job is complete.
+* When running a dbt job with logmech set to "browser", the initial authentication opens a browser window where you must enter your username and password.<br>
+* After authentication, this window remains open, requiring you to manually switch back to the dbt console.<br>
+* For every subsequent connection, a new browser tab briefly opens, displaying the message "TERADATA BROWSER AUTHENTICATION COMPLETED," and silently reuses the existing session.<br>
+* However, the focus stays on the browser window, so you’ll need to manually switch back to the dbt console each time.<br>
+* This behavior is the default functionality of the teradatasql driver and cannot be avoided at this time.<br>
+* To prevent session expiration and the need to re-enter credentials, ensure the authentication browser window stays open until the job is complete.
 
 ### Transaction mode
 Both ANSI and TERA modes are now supported in dbt-teradata. TERA mode's support is introduced with dbt-teradata 1.7.1, it is an initial implementation.
