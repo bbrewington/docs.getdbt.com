@@ -382,7 +382,7 @@ In temporal databases, valid time is crucial for applications like historical re
 The `valid_history` incremental strategy requires the following parameters:
 * `unique_key`: The primary key of the model (excluding the valid time components), specified as a column name or list of column names.
 * `valid_period`: Name of the model column indicating the period for which the record is considered to be valid. The datatype must be `PERIOD(DATE)` or `PERIOD(TIMESTAMP)`. 
-* `use_valid_to_time`: Wether the end bound value of the valid period in the input is considered by the strategy when building the valid timeline. Use 'no' if you consider your record to be valid until changed (and supply any value greater to the begin bound for the end bound of the period - a typical convention is `9999-12-31` of ``9999-12-31 23:59:59.999999`). Use 'yes' if you know until when the record is valid (typically this is a correction in the history timeline).
+* `use_valid_to_time`: Whether the end bound value of the valid period in the input is considered by the strategy when building the valid timeline. Use `no` if you consider your record to be valid until changed (and supply any value greater to the begin bound for the end bound of the period. A typical convention is `9999-12-31` of ``9999-12-31 23:59:59.999999`). Use `yes` if you know until when the record is valid (typically this is a correction in the history timeline).
 
 The valid_history strategy in dbt-teradata involves several critical steps to ensure the integrity and accuracy of historical data management:
 * Remove duplicates and conflicting values from the source data:
