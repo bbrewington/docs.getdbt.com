@@ -12,25 +12,6 @@ id: "teradata-configs"
     +quote_columns: false  #or `true` if you have csv column headers with spaces
   ```
 
-* *Enable view column types in docs* - Teradata Vantage has a dbscontrol configuration flag called `DisableQVCI`. This flag instructs the database to create `DBC.ColumnsJQV` with view column type definitions. To enable this functionality you need to:
-  1. Enable QVCI mode in Vantage. Use `dbscontrol` utility and then restart Teradata. Run these commands as a privileged user on a Teradata node:
-      ```bash
-      # option 551 is DisableQVCI. Setting it to false enables QVCI.
-      dbscontrol << EOF
-      M internal 551=false
-      W
-      EOF
-
-      # restart Teradata
-      tpareset -y Enable QVCI
-      ```
-  2. Instruct `dbt` to use `QVCI` mode. Include the following variable in your `dbt_project.yml`:
-      ```yaml
-      vars:
-        use_qvci: true
-      ```
-      For example configuration, see [dbt_project.yml](https://github.com/Teradata/dbt-teradata/blob/main/test/catalog/with_qvci/dbt_project.yml) in `dbt-teradata` QVCI tests.
-
 ## Models
 
 ### <Term id="table" />
@@ -351,14 +332,7 @@ If a user sets some key-value pair with value as `'{model}'`, internally this `'
 ## Unit testing
 * Unit testing is supported in dbt-teradata, allowing users to write and execute unit tests using the dbt test command.
   * For detailed guidance, refer to the [dbt unit tests documentation](/docs/build/documentation).
-
-* QVCI must be enabled in the database to run unit tests for views.
-  * Additional details on enabling QVCI can be found in the General section.
-  * Without QVCI enabled, unit test support for views will be limited.
-  * Users might encounter the following database error when testing views without QVCI enabled:
-    ```
-    * [Teradata Database] [Error 3706] Syntax error: Data Type "N" does not match a Defined Type name.
-    ```
+> In Teradata, reusing the same alias across multiple common table expressions (CTEs) or subqueries within a single model is not permitted, as it results in parsing errors; therefore, it is essential to assign unique aliases to each CTE or subquery to ensure proper query execution.
 
 ## valid_history incremental materialization strategy
 _This is available in early access_
@@ -388,8 +362,8 @@ The valid_history strategy in dbt-teradata involves several critical steps to en
 * Remove duplicates and conflicting values from the source data:
   * This step ensures that the data is clean and ready for further processing by eliminating any redundant or conflicting records.
   * The process of removing primary key duplicates (two or more records with the same value for the `unique_key` and BEGIN() bond of the `valid_period` fields) in the dataset produced by the model. If such duplicates exist, the row with the lowest value is retained for all non-primary-key fields (in the order specified in the model). Full-row duplicates are always de-duplicated.
-* Identify and adjust overlapping time slices (if use_valid_to_time='yes):
-  * Overlapping time periods in the data are corrected to maintain a consistent and non-overlapping timeline. To do so, the valid period end bound of a record is adjusted to meet the begin bound of the next record with the same `unique_key` value and overlapping `valid_period` value if any.
+* Identify and adjust overlapping time slices:
+  * Overlapping or adjacent time periods in the data are corrected to maintain a consistent and non-overlapping timeline. To achieve this, the macro adjusts the valid period end bound of a record to align with the begin bound of the next record (if they overlap or are adjacent) within the same `unique_key` group. If `use_valid_to_time = 'yes'`, the valid period end bound provided in the source data is used. Otherwise, a default end date is applied for missing bounds, and adjustments are made accordingly.
 * Manage records needing to be adjusted, deleted, or split based on the source and target data:
   * This involves handling scenarios where records in the source data overlap with or need to replace records in the target data, ensuring that the historical timeline remains accurate.
 * Compact history:
