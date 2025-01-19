@@ -350,7 +350,7 @@ If a user sets some key-value pair with value as `'{model}'`, internally this `'
 
 ## Unit testing
 * Unit testing is supported in dbt-teradata, allowing users to write and execute unit tests using the dbt test command.
-  * For detailed guidance, refer to the dbt documentation.
+  * For detailed guidance, refer to the [dbt unit tests documentation](/docs/build/documentation).
 
 * QVCI must be enabled in the database to run unit tests for views.
   * Additional details on enabling QVCI can be found in the General section.
