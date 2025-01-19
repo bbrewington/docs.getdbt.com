@@ -393,7 +393,7 @@ The valid_history strategy in dbt-teradata involves several critical steps to en
 * Manage records needing to be adjusted, deleted, or split based on the source and target data:
   * This involves handling scenarios where records in the source data overlap with or need to replace records in the target data, ensuring that the historical timeline remains accurate.
 * Compact history:
-  * Normalize and compact the history by merging records of adjacent time periods withe same value, optimizing database storage and performance. We use the function TD_NORMALIZE_MEET for this purpose.
+  * Normalize and compact the history by merging records of adjacent time periods with the same value, optimizing database storage and performance. We use the function TD_NORMALIZE_MEET for this purpose.
 * Delete existing overlapping records from the target table:
   * Before inserting new or updated records, any existing records in the target table that overlap with the new data are removed to prevent conflicts.
 * Insert the processed data into the target table:
