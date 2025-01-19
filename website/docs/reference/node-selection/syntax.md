@@ -118,32 +118,23 @@ dbt ls --select "result:<status>+" state:modified+ --state ./<dbt-artifact-path>
 <DiscourseHelpFeed tags="node-selection"/>
 
 
-## Stateful selection
+## State selection
 
 One of the greatest underlying assumptions about dbt is that its operations should be **stateless** and **<Term id="idempotent" />**. That is, it doesn't matter how many times a model has been run before, or if it has ever been run before. It doesn't matter if you run it once or a thousand times. Given the same raw data, you can expect the same transformed result. A given run of dbt doesn't need to "know" about _any other_ run; it just needs to know about the code in the project and the objects in your database as they exist _right now_.
 
-That said, dbt does store "state"—a detailed, point-in-time view of project resources (also referred to as nodes), database objects, and invocation results—in the form of its [artifacts](/docs/deploy/artifacts). If you choose, dbt can use these artifacts to inform certain  operations. Crucially, the operations themselves are still stateless and <Term id="idempotent" />: given the same manifest and the same raw data, dbt will produce the same transformed result.
+That said, dbt does store "state" &mdash; a detailed, point-in-time view of project resources (also referred to as nodes), database objects, and invocation results &mdash; in the form of its [artifacts](/docs/deploy/artifacts). If you choose, dbt can use these artifacts to inform certain  operations. Crucially, the operations themselves are still stateless and <Term id="idempotent" />: given the same manifest and the same raw data, dbt will produce the same transformed result.
 
 dbt can leverage artifacts from a prior invocation as long as their file path is passed to the `--state` flag. This is a prerequisite for:
-- [The `state:` selector](/reference/node-selection/methods#the-state-method), whereby dbt can identify resources that are new or modified
+- [The `state` selector](/reference/node-selection/methods#state), whereby dbt can identify resources that are new or modified
 by comparing code in the current project against the state manifest.
 - [Deferring](/reference/node-selection/defer) to another environment, whereby dbt can identify upstream, unselected resources that don't exist in your current environment and instead "defer" their references to the environment provided by the state manifest.
 - The [`dbt clone` command](/reference/commands/clone), whereby dbt can clone nodes based on their location in the manifest provided to the `--state` flag.
 
-Together, the `state:` selector and deferral enable ["slim CI"](/best-practices/best-practice-workflows#run-only-modified-models-to-test-changes-slim-ci). We expect to add more features in future releases that can leverage artifacts passed to the `--state` flag.
+Together, the [`state`](/reference/node-selection/methods#state) selector and deferral enable ["slim CI"](/best-practices/best-practice-workflows#run-only-modified-models-to-test-changes-slim-ci). We expect to add more features in future releases that can leverage artifacts passed to the `--state` flag.
 
 ### Establishing state
 
 State and defer can be set by environment variables as well as CLI flags:
-
-- `--state` or `DBT_STATE`: file path
-- `--defer` or `DBT_DEFER`: boolean
-
-:::warning Syntax deprecated
-
-In dbt v1.5, we deprecated the original syntax for state (`DBT_ARTIFACT_STATE_PATH`) and defer (`DBT_DEFER_TO_STATE`). Although dbt supports backward compatibility with the old syntax, we will remove it in a future release that we have not yet determined.
-
-:::
 
 - `--state` or `DBT_STATE`: file path
 - `--defer` or `DBT_DEFER`: boolean
@@ -156,6 +147,12 @@ If both the flag and env var are provided, the flag takes precedence.
 #### Notes:
 - The `--state` artifacts must be of schema versions that are compatible with the currently running dbt version.
 - These are powerful, complex features. Read about [known caveats and limitations](/reference/node-selection/state-comparison-caveats) to state comparison.
+
+:::warning Syntax deprecated
+
+In [dbt v1.5](/docs/dbt-versions/core-upgrade/upgrading-to-v1.5#behavior-changes), we deprecated the original syntax for state (`DBT_ARTIFACT_STATE_PATH`) and defer (`DBT_DEFER_TO_STATE`). Although dbt supports backward compatibility with the old syntax, we will remove it in a future release that we have not yet determined.
+
+:::
 
 ### The "result" status
 
@@ -204,7 +201,7 @@ When a job is selected, dbt Cloud will surface the artifacts from that job's mos
 After issuing the `dbt source freshness` command, you can reference the source freshness results by adding a selector to a subsequent command:
 
 ```bash
-# You can also set the DBT_ARTIFACT_STATE_PATH environment variable instead of the --state flag.
+# You can also set the DBT_STATE environment variable instead of the --state flag.
 dbt source freshness # must be run again to compare current to previous state
 dbt build --select "source_status:fresher+" --state path/to/prod/artifacts
 ```

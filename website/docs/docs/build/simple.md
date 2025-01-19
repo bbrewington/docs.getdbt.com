@@ -15,6 +15,7 @@ Simple metrics are metrics that directly reference a single measure, without any
 Note that we use the double colon (::) to indicate whether a parameter is nested within another parameter. So for example, `query_params::metrics` means the `metrics` parameter is nested under `query_params`.
 :::
 
+
 | Parameter | Description | Required | Type |
 | --------- | ----------- | ---- | ---- |
 | `name` | The name of the metric. | Required | String |
@@ -24,6 +25,8 @@ Note that we use the double colon (::) to indicate whether a parameter is nested
 | `type_params` | The type parameters of the metric. | Required | Dict |
 | `measure` | A list of measure inputs. | Required | List |
 | `measure:name` | The measure you're referencing. | Required | String |
+| `measure:alias` | Optional [`alias`](/reference/resource-configs/alias) to rename the measure. | Optional | String |
+| `measure:filter` | Optional `filter` applied to the measure. | Optional | String |
 | `measure:fill_nulls_with` | Set the value in your metric definition instead of null (such as zero). | Optional | String |
 | `measure:join_to_timespine` | Indicates if the aggregated measure should be joined to the time spine table to fill in missing dates. Default `false`. | Optional | Boolean |
 
@@ -38,6 +41,8 @@ metrics:
     type_params: # Required
       measure: 
         name: The name of your measure # Required
+        alias: The alias applied to the measure. # Optional
+        filter: The filter applied to the measure. # Optional
         fill_nulls_with: Set value instead of null  (such as zero) # Optional
         join_to_timespine: true/false # Boolean that indicates if the aggregated measure should be joined to the time spine table to fill in missing dates. # Optional
 
@@ -65,9 +70,11 @@ If you've already defined the measure using the `create_metric: true` parameter,
           name: customers # The measure you are creating a proxy of.
           fill_nulls_with: 0 
           join_to_timespine: true
+          alias: customer_count
+          filter: {{ Dimension('customer__customer_total') }} >= 20
     - name: large_orders
       description: "Order with order values over 20."
-      type: SIMPLE
+      type: simple
       label: Large orders
       type_params:
         measure: 

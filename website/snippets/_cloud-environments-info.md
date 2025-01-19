@@ -8,12 +8,12 @@ In dbt Cloud, there are two types of environments:
     - Production
 - **Development environment** &mdash; Determines the settings used in the dbt Cloud IDE or dbt Cloud CLI, for that particular project. 
 
-Each dbt Cloud project can only have a single development environment but can have any number of deployment environments.
+Each dbt Cloud project can only have a single development environment, but can have any number of General deployment environments, one Production deployment environment and one Staging deployment environment.
 
-|| Development  | Staging | Deployment |
-|------| --- | --- | --- |
-| **Determines settings for** | dbt Cloud IDE or dbt Cloud CLI | dbt Cloud Job runs | dbt Cloud Job runs |
-| **How many can I have in my project?** | 1 | Any number | Any number |
+|          | Development | General | Production | Staging |
+|----------|-------------|---------|------------|---------|
+| **Determines settings for** | dbt Cloud IDE or dbt Cloud CLI | dbt Cloud Job runs | dbt Cloud Job runs | dbt Cloud Job runs |
+| **How many can I have in my project?** | 1 | Any number | 1 | 1 |
 
 :::note 
 For users familiar with development on dbt Core, each environment is roughly analogous to an entry in your `profiles.yml` file, with some additional information about your repository to ensure the proper version of code is executed. More info on dbt core environments [here](/docs/core/dbt-core-environments).
@@ -33,9 +33,7 @@ Both development and deployment environments have a section called **General Set
 
 :::note About dbt version
 
-- dbt Cloud allows users to select any dbt release. At this time, **environments must use a dbt version greater than or equal to v1.0.0;** [lower versions are no longer supported](/docs/dbt-versions/upgrade-dbt-version-in-cloud).
-- If you select a current version with `(latest)` in the name, your environment will automatically install the latest stable version of the minor version selected.
-- Go **Versionless**, which removes the need for manually upgrading environment, while ensuring you are always up to date with the latest fixes and features.
+dbt Cloud allows users to select a [release track](/docs/dbt-versions/cloud-release-tracks) to receive ongoing dbt version upgrades at the cadence that makes sense for their team.
 :::
 
 ### Custom branch behavior

@@ -46,7 +46,7 @@ You can also watch the [YouTube video on dbt and Snowflake](https://www.youtube.
 
 ## Create a new Snowflake worksheet 
 1. Log in to your trial Snowflake account. 
-2. In the Snowflake UI, click **+ Worksheet** in the upper right corner to create a new worksheet.
+2. In the Snowflake UI, click **+ Create** in the left-hand corner, underneath the Snowflake logo, which opens a dropdown. Select the first option, **SQL Worksheet**. 
 
 ## Load data 
 The data used here is stored as CSV files in a public S3 bucket and the following steps will guide you through how to prepare your Snowflake account for that data and upload it.
@@ -142,7 +142,7 @@ There are two ways to connect dbt Cloud to Snowflake. The first option is Partne
 <Tabs>
 <TabItem value="partner-connect" label="Use Partner Connect" default>
 
-Using Partner Connect allows you to create a complete dbt account with your [Snowflake connection](/docs/cloud/connect-data-platform/connect-snowflake), [a managed repository](/docs/collaborate/git/managed-repository), [environments](/docs/build/custom-schemas#managing-environments), and credentials.
+Using Partner Connect allows you to create a complete dbt account with your [Snowflake connection](/docs/cloud/connect-data-platform/connect-snowflake), [a managed repository](/docs/cloud/git/managed-repository), [environments](/docs/build/custom-schemas#managing-environments), and credentials.
 
 1. In the Snowflake UI, click on the home icon in the upper left corner. In the left sidebar, select **Data Products**. Then, select **Partner Connect**. Find the dbt tile by scrolling or by searching for dbt in the search bar. Click the tile to connect to dbt.
 
@@ -229,6 +229,26 @@ Now that you have a repository configured, you can initialize your project and s
         select * from raw.jaffle_shop.customers
         ```
     - In the command line bar at the bottom, enter `dbt run` and click **Enter**. You should see a `dbt run succeeded` message.
+
+:::info
+If you receive an insufficient privileges error on Snowflake at this point, it may be because your Snowflake role doesn't have permission to access the raw source data, to build target tables and views, or both. 
+
+To troubleshoot, use a role with sufficient privileges (like `ACCOUNTADMIN`) and run the following commands in Snowflake. 
+
+**Note**: Replace `snowflake_role_name` with the role you intend to use. If you launched dbt Cloud with Snowflake Partner Connect, use `pc_dbt_role` as the role.
+
+```
+grant all on database raw to role snowflake_role_name;
+grant all on database analytics to role snowflake_role_name;
+
+grant all on schema raw.jaffle_shop to role snowflake_role_name;
+grant all on schema raw.stripe to role snowflake_role_name;
+
+grant all on all tables in database raw to role snowflake_role_name;
+grant all on future tables in database raw to role snowflake_role_name;
+```
+
+:::
 
 ## Build your first model
 
