@@ -390,7 +390,7 @@ The valid_history strategy in dbt-teradata involves several critical steps to en
   * The process of removing primary key duplicates (ie. two or more records with the same value for the `unique_key` and BEGIN() bond of the `valid_period` fields) in the dataset produced by the model. If such duplicates exist, the row with the lowest value is retained for all non-primary-key fields (in the order specified in the model) is retained. Full-row duplicates are always de-duplicated.
 * Identify and adjust overlapping time slices (if use_valid_to_time='yes):
   * Overlapping time periods in the data are corrected to maintain a consistent and non-overlapping timeline. To do so, the valid period end bound of a record is adjusted to meet the begin bound of the next record with the same `unique_key` value and overlapping `valid_period` value if any.
-* Manage records needing to be adjusted, deleted or split based on the source and target data:
+* Manage records needing to be adjusted, deleted, or split based on the source and target data:
   * This involves handling scenarios where records in the source data overlap with or need to replace records in the target data, ensuring that the historical timeline remains accurate.
 * Compact history:
   * Normalize and compact the history by merging records of adjacent time periods withe same value, optimizing database storage and performance. We use the function TD_NORMALIZE_MEET for this purpose.
