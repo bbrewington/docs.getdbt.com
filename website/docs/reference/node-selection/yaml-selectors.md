@@ -298,7 +298,7 @@ In dbt, [`select`](/reference/node-selection/syntax#how-does-selection-work) and
 | ------- | ---------- | ------------- |
 | Definition |	Ad-hoc, specified directly in the command.	| Pre-defined in `selectors.yml` file. |
 | Usage |	One-time or task-specific filtering.|	Reusable for multiple executions. |
-| Complexity	| Requires manual entry of selection criteria.	| Can encapsulate complex logic for reuse. |
+| Complexity	| Requires manual entry to select criteria.	| Can summarize complex logic for reuse. |
 | Flexibility	| Very flexible but less reusable. Allows using [graph operators](/reference/node-selection/graph-operators) (such as `+`, `@`.) and [set operators](/reference/node-selection/set-operators).|	Slightly less flexible; focuses on reusable and structured logic, supports YAML-based `union`, `intersection`, and `exclude`.|
 | Example	| `dbt run --select my_model+` (runs `my_model` and all downstream dependencies with the `+` operator). |	`dbt run --selector nightly_diet_snowplow` (runs models defined by the `nightly_diet_snowplow` selector in `selectors.yml`).  |
 
