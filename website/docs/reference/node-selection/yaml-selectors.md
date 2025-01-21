@@ -288,3 +288,19 @@ selectors:
 **Note:** While selector inheritance allows the logic from another selector to be _reused_, it doesn't allow the logic from that selector to be _modified_ by means of `parents`, `children`, `indirect_selection`, and so on. 
 
 The `selector` method returns the complete set of nodes returned by the named selector.
+
+
+## Difference between `--select` and `--selector`
+
+In dbt, [`select`](/reference/node-selection/syntax#how-does-selection-work) and `selector` are related but distinct concepts used for choosing specific models, tests, or resources. The following tables explains the differences and when to best use them:
+
+| Feature	| `--select` | `--selector` |
+| ------- | ---------- | ------------- |
+| Definition |	Ad-hoc, specified directly in the command.	| Pre-defined in `selectors.yml` file. |
+| Usage |	One-time or task-specific filtering.|	Reusable for multiple executions. |
+| Complexity	| Requires manual entry of selection criteria.	| Can encapsulate complex logic for reuse. |
+| Flexibility	| Very flexible but less reusable. Allows using [graph operators](/reference/node-selection/graph-operators) (such as `+`, `@`.) and [set operators](/reference/node-selection/set-operators).|	Slightly less flexible; focuses on reusable and structured logic, supports YAML-based `union`, `intersection`, and `exclude`.|
+| Example	| `dbt run --select my_model+` (runs `my_model` and all downstream dependencies with the `+` operator). |	`dbt run --selector nightly_diet_snowplow` (runs models defined by the `nightly_diet_snowplow` selector in `selectors.yml`).  |
+
+
+For additional examples, check out [this GitHub Gist](https://gist.github.com/jeremyyeo/1aeca767e2a4f157b07955d58f8078f7).
