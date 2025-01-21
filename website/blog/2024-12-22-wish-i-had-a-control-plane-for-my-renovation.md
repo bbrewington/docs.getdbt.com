@@ -8,7 +8,7 @@ authors: [mark_wan]
 tags: [analytics craft, data_ecosystem]
 hide_table_of_contents: false
 
-date: 2025-01-15
+date: 2025-01-21
 is_featured: true
 ---
 
