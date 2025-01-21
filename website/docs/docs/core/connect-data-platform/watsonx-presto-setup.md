@@ -16,7 +16,7 @@ meta:
   config_page: /reference/resource-configs/watsonx-presto-config
 ---
 
-The dbt-watsonx-presto adapter allows you to use dbt to transform and manage data on IBM watsonx.data Presto(Java), leveraging its distributed SQL query engine capabilities. The configuration and connection setup described here are also applicable to open-source Presto. Before proceeding, ensure you have the following:
+The dbt-watsonx-presto adapter allows you to use dbt to transform and manage data on IBM watsonx.data Presto(Java), leveraging its distributed SQL query engine capabilities. Before proceeding, ensure you have the following:
 <ul>
   <li>An active IBM watsonx.data Presto(Java) Engine with connection details (host, port, catalog, schema) in SaaS/Software.</li>
   <li>Authentication Credentials: Username and password/apikey.</li>
@@ -47,7 +47,7 @@ my_project:
       user: [user]
       password: [password]
       host: [hostname]
-      database: [database name]
+      database: [catalog name]
       schema: [your dbt schema]
       port: [port number]
       threads: [1 or more]
@@ -59,7 +59,7 @@ my_project:
       user: [user]
       password: [api_key]
       host: [hostname]
-      database: [database name]
+      database: [catalog name]
       schema: [your dbt schema]
       port: [port number]
       threads: [1 or more]
@@ -72,21 +72,17 @@ my_project:
 
 ## Host parameters
 
-The following profile fields are required to configure watsonx.data Presto(java) connections. The `method` field determines the authentication type used for the connection:
-1. **`none`** : If not specified, the `method` field defaults to `none`, which is used for unauthenticated connections (e.g., for local development of OSS Presto instances).
-2. **`BasicAuth`** : For secure connections (e.g., to IBM watsonx.data SaaS or Software instances), you must explicitly set `method: BasicAuth` and provide the corresponding `user` and `password` fields.
-
-For IBM watsonx.data SaaS or Software instances, you can get the `hostname` and `port` details by clicking **View connect details** on the Presto(java) engine details page.
+The following profile fields are required to configure watsonx.data Presto(java) connections. For IBM watsonx.data SaaS or Software instances, you can get the `hostname` and `port` details by clicking **View connect details** on the Presto(java) engine details page.
 
 | Option    | Required/Optional | Description | Example  |
 | --------- | ------- | ------- | ----------- |
-| `method`  | Required (default value is none) | Specifies the authentication method for Presto. Use `none` for unauthenticated connections or `BasicAuth` for secure connections. | `None` or `BasicAuth` |
-|   `user`  | Required | Username or email for authentication. | `user` |
-| `password`| Required (if `method` is `BasicAuth`) | Password or API key for authentication | `password` |
+| `method`  | Required | Specifies the authentication method for secure connections. Use `BasicAuth` when connecting to IBM watsonx.data SaaS or Software instances. | `BasicAuth` |
+|   `user`  | Required | Username or email address for authentication. | `user` |
+| `password`| Required | Password or API key for authentication | `password` |
 |   `host`  | Required | Hostname for connecting to Presto. | `127.0.0.1` |
 | `database`| Required | The catalog name in your presto instance. | `Analytics` |
 |  `schema` | Required | The schema name within your presto instance catalog. | `my_schema`  |
-|   `port`  | Required | Port for connecting to Presto.  | `443`  |
+|   `port`  | Required | The port for connecting to Presto.  | `443`  |
 | ssl_verify | Optional (default: **true**) | Specifies the path to the SSL certificate or a boolean value. The SSL certificate path is required if the watsonx.data instance is not secure (HTTP).| `path/to/certificate` or `true` |
 
 

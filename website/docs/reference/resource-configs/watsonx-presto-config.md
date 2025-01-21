@@ -15,9 +15,9 @@ For detailed setup instructions, including setting up watsonx.data, adding the P
 
 ## Session properties
 
-With IBM watsonx.data SaaS/Software, or Presto instance, you can [set session properties](https://prestodb.io/docs/current/sql/set-session.html) to modify the current configuration for your user session.
+With IBM watsonx.data SaaS/Software instance, you can [set session properties](https://prestodb.io/docs/current/sql/set-session.html) to modify the current configuration for your user session.
 
-To temporarily adjust session properties for a specific dbt model or a group of models, use a [dbt hook](/reference/resource-configs/pre-hook-post-hook). For example:
+To temporarily adjust session properties for a specific dbt model or a group of models, use a [dbt hook](../../reference/resource-configs/pre-hook-post-hook). For example:
 
 ```sql
 {{
@@ -29,30 +29,16 @@ To temporarily adjust session properties for a specific dbt model or a group of 
 
 ## Connector properties
 
-IBM watsonx.data SaaS/Software and Presto support various connector properties to manage how your data is represented. These properties are particularly useful for file-based connectors like Hive.
+IBM watsonx.data SaaS/Software support various connector properties to manage how your data is represented. These properties are particularly useful for file-based connectors like Hive.
 
-For information on what is supported for each data source, refer to one of the following resources:
-- [Presto Connectors](https://prestodb.io/docs/current/connector.html)
+For information on what is supported for each data source, refer to the following resources:
 - [watsonx.data SaaS Catalog](https://cloud.ibm.com/docs/watsonxdata?topic=watsonxdata-reg_database)
-- [watsonx.data Software Catalog](https://www.ibm.com/docs/en/watsonx/watsonxdata/1.1.x?topic=components-adding-database-catalog-pair)
+- [watsonx.data Software Catalog](https://www.ibm.com/docs/en/watsonx/watsonxdata/2.1.x?topic=components-adding-data-source)
 
-
-### Hive catalogs
-
-When using the Hive connector, ensure the following settings are configured. These settings are crucial for enabling frequently executed operations like `DROP` and `RENAME` in dbt:
-
-```java
-hive.metastore-cache-ttl=0s
-hive.metastore-refresh-interval=5s
-hive.allow-drop-table=true
-hive.allow-rename-table=true
-
-```
 
 ## File format configuration
 
 File-based connectors, such as Hive and Iceberg, allow customization of table materialization, data formats, and partitioning strategies in dbt models. The following examples demonstrate how to configure these options for each connector.
-
 
 ### Hive Configuration
 
@@ -91,7 +77,7 @@ For more information about Iceberg table creation and supported configurations, 
 
 
 ## Seeds and prepared statements
-The `dbt-watsonx-presto` adapter offers comprehensive support for all [Presto datatypes](https://prestodb.io/docs/current/language/types.html) and [watsonx.data Presto datatypes](https://www.ibm.com/support/pages/node/7157339) in seed files. To leverage this functionality, you must explicitly define the data types for each column.
+The `dbt-watsonx-presto` adapter offers comprehensive support for all [watsonx.data Presto datatypes](https://www.ibm.com/support/pages/node/7157339) in seed files. To leverage this functionality, you must explicitly define the data types for each column.
 
 You can configure column data types either in the dbt_project.yml file or in property files, as supported by dbt. For more details on seed configuration and best practices, refer to the [dbt seed configuration documentation](https://docs.getdbt.com/reference/seed-configs).
 
@@ -107,7 +93,7 @@ The `dbt-watsonx-presto` adapter enables you to create and update tables through
 
 #### Recommendations
 - **Check Permissions:** Ensure that the necessary permissions for table creation are enabled in the catalog or schema.
-- **Check Connector Documentation:** Review Presto [connector’s documentation](https://prestodb.io/docs/current/connector.html) or watsonx.data Presto [sql statement support](https://www.ibm.com/support/pages/node/7157339) to ensure it supports table creation and modification.
+- **Check Connector Documentation:** Review watsonx.data Presto [sql statement support](https://www.ibm.com/support/pages/node/7157339) to ensure it supports table creation and modification.
 
 #### Limitations with Some Connectors
 Certain watsonx.data Presto connectors, particularly read-only ones or those with restricted permissions, do not allow creating or modifying tables. If you attempt to use table materialization with these connectors, you may encounter an error like:
@@ -120,7 +106,7 @@ PrestoUserError(type=USER_ERROR, name=NOT_SUPPORTED, message="This connector doe
 
 The `dbt-watsonx-presto` adapter automatically creates views by default, as views are the standard materialization in dbt. If no materialization is explicitly specified, dbt will create a view in watsonx.data Presto.
 
-To confirm whether your connector supports view creation, refer to the watsonx.data [sql statement support](https://www.ibm.com/support/pages/node/7157339) or Presto [connector documentation](https://prestodb.io/docs/current/connector.html).
+To confirm whether your connector supports view creation, refer to the watsonx.data [sql statement support](https://www.ibm.com/support/pages/node/7157339).
 
 
 ## Unsupported Features
