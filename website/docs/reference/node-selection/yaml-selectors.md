@@ -291,7 +291,7 @@ The `selector` method returns the complete set of nodes returned by the named se
 
 ## Difference between `--select` and `--selector`
 
-In dbt, [`select`](/reference/node-selection/syntax#how-does-selection-work) and `selector` are related but distinct concepts used for choosing specific models, tests, or resources. The following tables explains the differences and when to best use them:
+In dbt, [`select`](/reference/node-selection/syntax#how-does-selection-work) and `selector` are related concepts used for choosing specific models, tests, or resources. The following tables explains the differences and when to best use them:
 
 | Feature	| `--select` | `--selector` |
 | ------- | ---------- | ------------- |
