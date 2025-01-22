@@ -27,8 +27,9 @@ Both development and deployment environments have a section called **General Set
 | --- | --- | --- | --- |
 | Name | Production  | The environment name  | Any string! |
 | Environment Type | Deployment | The type of environment | [Deployment, Development] |
-| dbt Version | 1.4 (latest) | The dbt version used  | Any dbt version in the dropdown |
-| Default to Custom Branch | ☑️ | Determines whether to use a branch other than the repository’s default  | See below |
+| Set deployment type | PROD |  Designates the deployment environment type. | [Production, Staging, General] | 
+| dbt Version | Latest | dbt Cloud automatically upgrades the dbt version running in this environment, based on the release track you select. | [Lastest, Compatible, Extended] |
+| Only run on a custom branch | ☑️ | Determines whether to use a branch other than the repository’s default  | See below |
 | Custom Branch | dev | Custom Branch name | See below |
 
 :::note About dbt version
