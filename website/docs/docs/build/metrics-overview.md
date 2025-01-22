@@ -136,7 +136,7 @@ metrics:
     time_granularity: month -- Optional, defaults to day
 ```
 
-Remember that metrics can be defined in the same YAML files as your semantic models but must be defined as a separate top-level section and not nested within a `semantic_model`. Or you can define metrics in their dedicated separate YAML files located in any subdirectories within the same dbt project repository.
+Remember that metrics can be defined in the same YAML files as your semantic models but must be defined as a separate top-level section and not nested within the `semantic_models` key. Or you can define metrics in their dedicated separate YAML files located in any subdirectories within the same dbt project repository.
 
 </VersionBlock>
 
