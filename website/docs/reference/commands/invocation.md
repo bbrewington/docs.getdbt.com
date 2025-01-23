@@ -9,7 +9,7 @@ The `dbt invocation` command enables you to view current active invocations. Thi
 - Viewing your local configuration details (account ID, active project ID, deployment environment, and more).
 - Viewing your dbt Cloud configuration details (environment ID, environment name, connection type, and more).
 
-This guide lists all the commands and options you can use with `dbt invocation` in the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation). To use them, add a command or option like this: `dbt invocation [command]` or use the shorthand  `dbt inv [command]`.
+This page lists the command and flag you can use with `dbt invocation` in the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation). To use them, add a command or option like this: `dbt invocation [command]`.
 
 ### dbt invocation help
 
