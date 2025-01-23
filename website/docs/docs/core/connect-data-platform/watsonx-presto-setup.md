@@ -80,7 +80,7 @@ The following profile fields are required to configure watsonx.data Presto(java)
 |   `user`  | Required | Username or email address for authentication. | `user` |
 | `password`| Required | Password or API key for authentication | `password` |
 |   `host`  | Required | Hostname for connecting to Presto. | `127.0.0.1` |
-| `database`| Required | The catalog name in your presto instance. | `Analytics` |
+| `database`| Required | The catalog name in your Presto instance. | `Analytics` |
 |  `schema` | Required | The schema name within your presto instance catalog. | `my_schema`  |
 |   `port`  | Required | The port for connecting to Presto.  | `443`  |
 | `ssl_verify` | Optional (default: **true**) | Specifies the path to the SSL certificate or a boolean value. The SSL certificate path is required if the watsonx.data instance is not secure (HTTP).| `path/to/certificate` or `true` |
