@@ -64,7 +64,7 @@ Follow these steps to set up your data health tile:
 6. Navigate back to dbt Explorer and select an exposure.
 
    :::tip
-      The exposure used for the  data health tile must have the [`type` property](/docs/build/exposures#available-properties) set to `dashboard`. Otherwise, you won't be able to view the **Embed data health tile in your dashboard** drop in dbt Explorer.
+      The exposure used for the  data health tile must have the [`type` property](/docs/build/exposures#available-properties) set to `dashboard`. Otherwise, you won't be able to view the **Embed data health tile in your dashboard** dropdown in dbt Explorer.
    :::
 
 7. Below the **Data health** section, expand on the toggle for instructions on how to embed the exposure tile (if you're an account admin with develop permissions). 
