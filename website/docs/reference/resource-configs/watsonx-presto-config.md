@@ -1,6 +1,6 @@
 ---
 title: "IBM watsonx.data Presto configurations"
-id: "watsonx-presto-configs"
+id: "watsonx-presto-config"
 ---
 
 ## Instance requirements
