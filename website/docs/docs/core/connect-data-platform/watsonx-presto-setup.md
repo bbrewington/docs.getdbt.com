@@ -18,7 +18,7 @@ meta:
 
 The dbt-watsonx-presto adapter allows you to use dbt to transform and manage data on IBM watsonx.data Presto(Java), leveraging its distributed SQL query engine capabilities. Before proceeding, ensure you have the following:
 <ul>
-  <li>An active IBM watsonx.data Presto(Java) engine with connection details (host, port, catalog, schema) in SaaS/software.</li>
+  <li>An active IBM watsonx.data Presto(Java) engine with connection details (host, port, catalog, schema) in SaaS/Software.</li>
   <li>Authentication credentials: Username and password/apikey.</li>
   <li>For watsonx.data instances, SSL verification is required for secure connections. If the instance host uses HTTPS, there is no need to specify the SSL certificate parameter. However, if the instance host uses an unsecured HTTP connection, ensure you provide the path to the SSL certificate file.</li>
 </ul>
