@@ -32,7 +32,7 @@ import SetUpPages from '/snippets/_setup-pages-intro.md';
 <SetUpPages meta={frontMatter.meta}/>
 
 
-## Connecting to IBM watsonx.data Presto
+## Connecting to IBM watsonx.data P\presto
 
 To connect dbt with watsonx.data Presto(java), you need to configure a profile in your `profiles.yml` file located in the `.dbt/` directory of your home folder. The following is an example configuration for connecting to IBM watsonx.data SaaS and Software instances:
 
@@ -83,13 +83,13 @@ The following profile fields are required to configure watsonx.data Presto(java)
 | `database`| Required | The catalog name in your presto instance. | `Analytics` |
 |  `schema` | Required | The schema name within your presto instance catalog. | `my_schema`  |
 |   `port`  | Required | The port for connecting to Presto.  | `443`  |
-| ssl_verify | Optional (default: **true**) | Specifies the path to the SSL certificate or a boolean value. The SSL certificate path is required if the watsonx.data instance is not secure (HTTP).| `path/to/certificate` or `true` |
+| `ssl_verify` | Optional (default: **true**) | Specifies the path to the SSL certificate or a boolean value. The SSL certificate path is required if the watsonx.data instance is not secure (HTTP).| `path/to/certificate` or `true` |
 
 
 ### Schemas and databases
 When selecting the catalog and the schema, make sure the user has read and write access to both. This selection does not limit your ability to query the catalog. Instead, they serve as the default location for where tables and views are materialized. In addition, the Presto connector used in the catalog must support creating tables. This default can be changed later from within your dbt project.
 
-### SSL Verification
+### SSL verification
 - If the Presto instance uses an unsecured HTTP connection, you must set `ssl_verify` to the path of the SSL certificate file.
 - If the instance uses `HTTPS`, this parameter is not required and can be omitted.
 

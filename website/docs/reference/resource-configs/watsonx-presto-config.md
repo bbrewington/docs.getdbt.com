@@ -95,7 +95,7 @@ The `dbt-watsonx-presto` adapter enables you to create and update tables through
 - **Check Permissions:** Ensure that the necessary permissions for table creation are enabled in the catalog or schema.
 - **Check Connector Documentation:** Review watsonx.data Presto [sql statement support](https://www.ibm.com/support/pages/node/7157339) to ensure it supports table creation and modification.
 
-#### Limitations with Some Connectors
+#### Limitations with some connectors
 Certain watsonx.data Presto connectors, particularly read-only ones or those with restricted permissions, do not allow creating or modifying tables. If you attempt to use table materialization with these connectors, you may encounter an error like:
 
 ```sh
@@ -109,7 +109,7 @@ The `dbt-watsonx-presto` adapter automatically creates views by default, as view
 To confirm whether your connector supports view creation, refer to the watsonx.data [sql statement support](https://www.ibm.com/support/pages/node/7157339).
 
 
-## Unsupported Features
+## Unsupported features
 The following features are not supported by the `dbt-watsonx-presto` adapter
 - Incremental Materialization
 - Materialized Views
