@@ -32,7 +32,7 @@ import SetUpPages from '/snippets/_setup-pages-intro.md';
 
 ## Connecting to IBM watsonx.data presto
 
-To connect dbt with watsonx.data Presto(java), you need to configure a profile in your `profiles.yml` file located in the `.dbt/` directory of your home folder. The following is an example configuration for connecting to IBM watsonx.data SaaS and software instances:
+To connect dbt with watsonx.data Presto(java), you need to configure a profile in your `profiles.yml` file located in the `.dbt/` directory of your home folder. The following is an example configuration for connecting to IBM watsonx.data SaaS and Software instances:
 
 <File name='~/.dbt/profiles.yml'>
 
