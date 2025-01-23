@@ -1,7 +1,7 @@
 ---
 title: "IBM watsonx.data Presto setup"
 description: "Read this guide to learn about the IBM watsonx.data Presto setup in dbt."
-id: "watsonx-presto setup"
+id: "watsonx-presto-setup"
 meta:
   maintained_by: IBM
   authors: Karnati Naga Vivek, Hariharan Ashokan, Biju Palliyath, Gopikrishnan Varadarajulu, Rohan Pednekar
