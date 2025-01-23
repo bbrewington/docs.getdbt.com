@@ -74,7 +74,7 @@ The following profile fields are required to configure watsonx.data Presto(java)
 
 | Option    | Required/Optional | Description | Example  |
 | --------- | ------- | ------- | ----------- |
-| `method`  | Required | Specifies the authentication method for secure connections. Use `BasicAuth` when connecting to IBM watsonx.data SaaS or software instances. | `BasicAuth` |
+| `method`  | Required | Specifies the authentication method for secure connections. Use `BasicAuth` when connecting to IBM watsonx.data SaaS or Software instances. | `BasicAuth` |
 |   `user`  | Required | Username or email address for authentication. | `user` |
 | `password`| Required | Password or API key for authentication | `password` |
 |   `host`  | Required | Hostname for connecting to Presto. | `127.0.0.1` |
