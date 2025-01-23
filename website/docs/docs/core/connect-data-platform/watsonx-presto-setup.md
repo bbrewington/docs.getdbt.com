@@ -22,7 +22,7 @@ The dbt-watsonx-presto adapter allows you to use dbt to transform and manage dat
   <li>Authentication credentials: Username and password/apikey.</li>
   <li>For watsonx.data instances, SSL verification is required for secure connections. If the instance host uses HTTPS, there is no need to specify the SSL certificate parameter. However, if the instance host uses an unsecured HTTP connection, ensure you provide the path to the SSL certificate file.</li>
 </ul>
-Refer to the Configuring dbt-watsonx-presto section for guidance on obtaining and organizing these details.
+Refer to [Configuring dbt-watsonx-presto](https://www.ibm.com/docs/en/watsonx/watsonxdata/2.1.x?topic=presto-configuration-setting-up-your-profile) for guidance on obtaining and organizing these details.
 
 
 <Snippet path="warehouse-setups-cloud-callout" />
