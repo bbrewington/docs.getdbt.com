@@ -28,7 +28,7 @@ Data health tiles rely on [exposures](/docs/build/exposures) to surface data hea
 - You must be an account admin to set up [service tokens](/docs/dbt-cloud-apis/service-tokens#permissions-for-service-account-tokens).
 - You must have [develop permissions](/docs/cloud/manage-access/seats-and-users).
 - Have [exposures](/docs/build/exposures) defined in your project and [source freshness](/docs/deploy/source-freshness) enabled in the job that generates this exposure.
-   - The exposure used for the  data health tile must have the [`type` property](/docs/build/exposures#available-properties) set to `dashboard`. Otherwise, you won't be able to view the **Embed data health tile in your dashboard** drop in dbt Explorer.
+   - The exposure used for the  data health tile must have the [`type` property](/docs/build/exposures#available-properties) set to `dashboard`. Otherwise, you won't be able to view the **Embed data health tile in your dashboard** dropdown in dbt Explorer.
 
 ## View exposure in dbt Explorer
 
