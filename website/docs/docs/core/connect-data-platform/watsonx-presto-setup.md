@@ -72,7 +72,7 @@ my_project:
 
 ## Host parameters
 
-The following profile fields are required to configure watsonx.data Presto(java) connections. For IBM watsonx.data SaaS or Software instances, you can get the `hostname` and `port` details by clicking **View connect details** on the Presto(java) engine details page.
+The following profile fields are required to configure watsonx.data Presto(java) connections. For IBM watsonx.data SaaS or software instances, you can get the `hostname` and `port` details by clicking **View connect details** on the Presto(java) engine details page.
 
 | Option    | Required/Optional | Description | Example  |
 | --------- | ------- | ------- | ----------- |
