@@ -25,8 +25,6 @@ The dbt-watsonx-presto adapter allows you to use dbt to transform and manage dat
 Refer to [Configuring dbt-watsonx-presto](https://www.ibm.com/docs/en/watsonx/watsonxdata/2.1.x?topic=presto-configuration-setting-up-your-profile) for guidance on obtaining and organizing these details.
 
 
-<Snippet path="warehouse-setups-cloud-callout" />
-
 import SetUpPages from '/snippets/_setup-pages-intro.md';
 
 <SetUpPages meta={frontMatter.meta}/>
