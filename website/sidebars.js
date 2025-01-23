@@ -900,7 +900,7 @@ const sidebarSettings = {
         "reference/resource-configs/teradata-configs",
         "reference/resource-configs/upsolver-configs",
         "reference/resource-configs/vertica-configs",
-        "reference/resource-configs/watsonx-presto-configs",
+        "reference/resource-configs/watsonx-presto-config",
         "reference/resource-configs/yellowbrick-configs",
       ],
     },
