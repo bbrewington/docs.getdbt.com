@@ -7,6 +7,6 @@ id: long-sessions-cloud-cli
 
 If you're receiving a `Session occupied` error in the dbt Cloud CLI or if you're experiencing a long-running session, you can use the `dbt invocation list` command in a separate terminal window to view the status of your active session. This helps you identify the model that's causing the long-running session and debug the issue.
 
-To cancel the session, use the `Ctrl + Z` shortcut to cancel the session.
+To cancel an active session, use the `Ctrl + Z` shortcut.
 
 To learn more about the `dbt invocation` command, see the [dbt invocation command reference](/reference/commands/invocation).
