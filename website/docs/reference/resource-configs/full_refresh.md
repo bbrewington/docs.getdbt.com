@@ -68,7 +68,7 @@ You can set the `full_refresh` config in the `dbt_project.yml` file or in a reso
 | ---------------------------- | -------- |
 | If set to `true` | The resource _always_ performs a full refresh, regardless of whether you pass the `--full-refresh` flag in the dbt command. |
 | If set to `false` | The resource _never_ performs a full refresh, regardless of whether you pass the `--full-refresh` flag in the dbt command. |
-| If set to `none` or omitted | The resource follows the behavior of the `--full-refresh` flag. If the flag is used, the resource will full-refresh; otherwise, it won't. |
+| If set to `none` or omitted | The resource follows the behavior of the `--full-refresh` flag. If the flag is used, the resource will perform a full refresh; otherwise, it will not. |
 
 #### Note
 - The `--full-refresh` flag also supports a short name, `-f`.
