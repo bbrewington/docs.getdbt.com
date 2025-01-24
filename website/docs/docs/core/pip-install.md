@@ -157,36 +157,37 @@ Or, better yet, just install the package(s) you need!
 
 <VersionBlock firstVersion="1.8">
 
-### Install prereleases of dbt-adapters
+### Installing prereleases
 
 A prerelease adapter is a version released before the final, stable version. It allows users to test new features, provide feedback, and get early access to upcoming functionality &mdash; ensuring your system will be ready for the final release.
 
 Using a prerelease of an adapter has many benefits such as granting you early access to new features and improvements ahead of the stable release. As well as compatibility testing, allowing you to test the adapter in your environment to catch integration issues early, ensuring your system will be ready for the final release. 
 
-Note that using a prerelease version before the final, stable version means the version isn't fully optimized and can result in unexpected behavior. Additionally, frequent updates and patches during the prerelease phase may require extra time and effort to maintain.
+Note that using a prerelease version before the final, stable version means the version isn't fully optimized and can result in unexpected behavior. Additionally, frequent updates and patches during the prerelease phase may require extra time and effort to maintain. Furthermore, the `--pre flag` may install compatible prerelease versions of other dependencies, which could introduce additional instability.
 
 To install prerelease versions of dbt Core and your adapter, use this command (replace `dbt-adapter-name` with your adapter)
 
 ```shell
 python3 -m pip install --pre dbt-core dbt-adapter-name
-````
+```
 
 For example, if you’re using Snowflake, you would use the command:
 
 
 ```shell
 python3 -m pip install --pre dbt-core dbt-snowflake
-````
+
+```
 
 We recommend you install prereleases in a [virtual Python environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). For example, to install a prerelease in a `POSIX bash`/`zsh` virtual Python environment, use the following commands:
 
 ```shell
 dbt --version
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install --pre dbt-core dbt-adapter-name
-source venv/bin/activate
+source .venv/bin/activate
 dbt --version
 ```
 Note, this will also install any pre-releases of all dependencies.
@@ -208,9 +209,9 @@ Select your operating system and run the following command to activate it:
 ```shell
 source .venv/bin/activate
 which python
-venv/bin/python
+.venv/bin/python
   
-  ```
+```
   2. Install the prerelease using the following command:
 
 
@@ -227,11 +228,11 @@ dbt --version
 1. Activate your virtual environment: 
 
 ```shell
-env\Scripts\activate
+.venv\Scripts\activate
 where python
-env\Scripts\python
-  
-  ```
+.venv\Scripts\python
+```
+
 2. Install the prerelease using the following command:
 
 ```shell
@@ -247,13 +248,13 @@ dbt --version
 
 <VersionBlock lastVersion="1.7">
 
-### Install prereleases of dbt-adapters
+### Installing prereleases
 
-dbt-adapters are only compatible with dbt Core 1.8 and higher. If you're on dbt Core v1.7 or lower, follow these steps to upgrade to v1.8 or higher to install prereleases of dbt-adapters.
+`dbt-adapters` is only compatible with dbt Core 1.8 and higher. If you're on dbt Core v1.7 or lower, follow these steps to upgrade to v1.8 or higher to install prereleases of `dbt-adapters`.
 
 ```shell
 python -m pip uninstall -y dbt-adapters
-python -m pip install --upgrade dbt-core dbt-common dbt-adapters
+python -m pip install --upgrade --pre dbt-core dbt-common dbt-adapters
 dbt --version
 ```
 
