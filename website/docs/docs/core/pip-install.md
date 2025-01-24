@@ -18,7 +18,7 @@ You can create virtual environments using tools like [conda](https://anaconda.or
 
 Users who want to run dbt locally, for example in [dbt Core](/docs/core/installation-overview) or the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation#install-a-virtual-environment) may want to install a Python virtual environment.
 
-## Prerequisites
+### Prerequisites
 
 Once you've met the prerequisites, follow these steps to set up your virtual environment.
 
