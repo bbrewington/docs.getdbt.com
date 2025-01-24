@@ -221,7 +221,7 @@ In general, the engine must:
 
 3. **Execute Operations** &mdash; Once the required data is read into memory, it flows through a pipeline of the nodes in your physical plan. There is more than 50 years of work in building optimizations for these steps as applied to different data structures and in-memory representations; everything from row-oriented databases, to columnar, to time series to geo-spatial to graph. But fundamentally, there are 5 common operation:
 
-    1. **Projection** &mdash; Extract only the columns or expressions that the user requested needed (e.g., `order_id`).
+    1. **Projection** &mdash; Extract only the columns or expressions that the user requested needed (e.g. `order_id`).
 
     2. **Filtering** &mdash; Rows that don’t meet your `WHERE` condition are dropped.
 
