@@ -13,7 +13,7 @@ The `dbt invocation` command only lists _active invocations_. If no sessions are
 
 ## Usage
 
-This page lists the command and flag you can use with `dbt invocation`. To use them, add a command or option like this: `dbt invocation [flag]`.
+This page lists the command and flag you can use with `dbt invocation`. To use them, add a command or option like this: `dbt invocation [command]`.
 
 Available flags in the command line interface (CLI) are [`help`](#dbt-invocation-help) and [`list`](#dbt-invocation-list).
 
