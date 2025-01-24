@@ -10,13 +10,11 @@ You can install dbt Core and plugins using `pip` because they are Python modules
 <FAQ path="Core/install-pip-os-prereqs" />
 <FAQ path="Core/install-python-compatibility" />
 
-## Create a Python virtual environment
+## What is a Python virtual environment?
 
-A Python virtual environment is an isolated workspace for Python projects. This prevents libraries and versions used in one project from interfering with others, making it especially helpful when working on multiple projects with differing requirements or avoiding conflicts with global Python installations.
+A Python virtual environment creates an isolated workspace for Python projects, preventing conflicts between dependencies of different projects and versions.
 
-The Python ecosystem offers several tools for creating isolated environments, such as [conda](https://anaconda.org/anaconda/conda), [poetry](https://python-poetry.org/docs/managing-environments/), and `venv`. Among these, `venv` has the fewest additional dependencies and has been included by default in recent Python versions for quite some time.
-
-`venv` will set up a Python virtual environment within the `env` folder.
+You can create virtual environments using tools like conda, poetry, or venv. This guide uses venv because it's lightweight, has the fewest additional dependencies, and is included in Python by default.
 
 Users who want to run dbt locally, for example in [dbt Core](/docs/core/installation-overview) or the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation#install-a-virtual-environment) may want to install a Python virtual environment.
 
@@ -29,11 +27,13 @@ Once you've met the prerequisites, follow these steps to set up your virtual env
 - Have [pip installed](https://pip.pypa.io/en/stable/installation/). You can check if pip is installed by running `pip --version` or `pip3 --version`.
 - Have the necessary permissions to create directories and install packages on your machine.
 
-## Install a Python virtual environment 
+### Set up a Python virtual environment 
+
+`venv` will set up a Python virtual environment within the `env` folder.
 
 Depending on the operating system you use, you'll need to execute specific steps to set up a virtual environment. 
 
-To install a Python virtual environment, navigate to your project directory and execute the command. This will generate a new virtual environment within a local folder that you can name anything.  [Our convention](https://github.com/dbt-labs/dbt-core/blob/main/CONTRIBUTING.md#virtual-environments) has been to name it `env` or `env-anything-you-want`
+To set up a Python virtual environment, navigate to your project directory and execute the command. This will generate a new virtual environment within a local folder that you can name anything.  [Our convention](https://github.com/dbt-labs/dbt-core/blob/main/CONTRIBUTING.md#virtual-environments) has been to name it `env` or `env-anything-you-want`
 
 <Tabs>
   <TabItem value="Unix/macOS" label="Unix/macOS">
@@ -93,7 +93,7 @@ If you're using dbt Core, refer to [What are the best practices for installing d
 
 If you're using the dbt Cloud CLI, you can [install dbt Cloud CLI in pip](/docs/cloud/cloud-cli-installation#install-dbt-cloud-cli-in-pip) after creating your virtual environment.
 
-## Deactivate virtual environment
+### Deactivate virtual environment
 
 To switch projects or leave your virtual environment, deactivate the environment using the command while the virtual environment is active:
 

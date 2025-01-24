@@ -192,8 +192,8 @@ const sidebarSettings = {
               label: "Install dbt Core",
               link: { type: "doc", id: "docs/core/installation-overview" },
               items: [
-                "docs/core/docker-install",
                 "docs/core/installation-overview",
+                "docs/core/docker-install",
                 "docs/core/pip-install",
                 "docs/core/source-install",
               ],
