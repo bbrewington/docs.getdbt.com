@@ -14,7 +14,7 @@ You can install dbt Core and plugins using `pip` because they are Python modules
 
 A Python virtual environment creates an isolated workspace for Python projects, preventing conflicts between dependencies of different projects and versions.
 
-You can create virtual environments using tools like conda, poetry, or venv. This guide uses venv because it's lightweight, has the fewest additional dependencies, and is included in Python by default.
+You can create virtual environments using tools like [conda](https://anaconda.org/anaconda/conda), [poetry](https://python-poetry.org/docs/managing-environments/) or `venv`. This guide uses `venv` because it's lightweight, has the fewest additional dependencies, and is included in Python by default.
 
 Users who want to run dbt locally, for example in [dbt Core](/docs/core/installation-overview) or the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation#install-a-virtual-environment) may want to install a Python virtual environment.
 
