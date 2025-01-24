@@ -154,6 +154,7 @@ When running `dbt sqlfluff` from the dbt Cloud CLI, the following are important 
 - An SQLFluff command will return an exit code of 0 if it ran with any file violations. This dbt behavior differs from SQLFluff behavior, where a linting violation returns a non-zero exit code. dbt Labs plans on addressing this in a later release.
 
 ## FAQs
+
 <Expandable alt_header="How to create a .dbt directory and move your file">
 
 If you've never had a `.dbt` directory, you should perform the following recommended steps to create one. If you already have a `.dbt` directory, move the `dbt_cloud.yml` file into it.
@@ -201,5 +202,6 @@ This command moves the `dbt_cloud.yml` from the `Downloads` folder to the `.dbt`
 
 By default, [all artifacts](/reference/artifacts/dbt-artifacts) are downloaded when you execute dbt commands from the dbt Cloud CLI. To skip these files from being downloaded, add `--download-artifacts=false` to the command you want to run. This can help improve run-time performance but might break workflows that depend on assets like the [manifest](/reference/artifacts/manifest-json). 
 
-
 </Expandable>
+
+<FAQ path="Troubleshooting/long-sessions-cloud-cli" />
