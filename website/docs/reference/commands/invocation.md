@@ -4,15 +4,18 @@ sidebar_label: "invocation"
 id: invocation
 ---
 
-The `dbt invocation` command enables you to view active invocations when sessions are taking too long to execute or when you get a `Session occupied` error in the dbt Cloud CLI. This command is useful for debugging long-running or 'hanging' sessions. This command isn't needed for completed sessions (sessions that have completed running).
+The `dbt invocation` command is available in the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation) and allows you to:
+- List active invocations to debug long-running or hanging sessions.
+- Identify and investigate sessions causing the `Session occupied` error.
+- Monitor currently active dbt commands (like `run`, `build`) in real-time.
 
-This page lists the command and flag you can use with `dbt invocation` in the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation). To use them, add a command or option like this: `dbt invocation [flag]`.
-
-Available flags in the command line interface (CLI) are [`help`](#dbt-invocation-help) and [`list`](#dbt-invocation-list).
+The `dbt invocation` command only lists _active invocations_. If no sessions are running, the list will be empty. Completed sessions aren't included in the output.
 
 ## Usage
 
-The following examples show how to use the `dbt invocation` command in the dbt Cloud CLI using the `help` and `list` flags.
+This page lists the command and flag you can use with `dbt invocation`. To use them, add a command or option like this: `dbt invocation [flag]`.
+
+Available flags in the command line interface (CLI) are [`help`](#dbt-invocation-help) and [`list`](#dbt-invocation-list).
 
 ### dbt invocation help
 
@@ -74,3 +77,9 @@ Active Invocations:
 
 ➜  jaffle-shop git:(test-cli) ✗ 
 ```
+
+## Related docs
+
+- [Install dbt Cloud CLI](/docs/cloud/cloud-cli-installation)
+- [Troubleshooting dbt Cloud CLI 'Session occupied' error](/faqs/Troubleshooting/long-sessions-cloud-cli)
+
