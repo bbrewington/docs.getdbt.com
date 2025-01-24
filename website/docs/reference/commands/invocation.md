@@ -5,7 +5,7 @@ id: invocation
 ---
 
 The `dbt invocation` command is available in the [dbt Cloud CLI](/docs/cloud/cloud-cli-installation) and allows you to:
-- List active invocations to debug long-running or hanging sessions.
+- List active invocations to debug long-running or hanging invocations.
 - Identify and investigate sessions causing the `Session occupied` error.
 - Monitor currently active dbt commands (like `run`, `build`) in real-time.
 
