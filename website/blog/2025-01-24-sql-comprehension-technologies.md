@@ -161,7 +161,7 @@ This plan can be very helpful for you as a developer, especially if it’s avail
 **Compilers** are programs that translate high-level language to low-level language. *Parsers* and *binders* together constitute compilers.
 :::
 
-Taken together, a parser plus a binder constitute a *compiler,* a program that takes in high-level code (one that is optimized for human readability, like SQL) and outputs low-level code (one that is optimized for machine readability + execution).  In SQL compilers, this output is the logical plan. The diagram below shows the entire process of compilation.
+Taken together, a parser plus a binder constitute a *compiler,* a program that takes in high-level code (one that is optimized for human readability, like SQL) and outputs low-level code (one that is optimized for machine readability + execution).  In SQL compilers, this output is the logical plan.
 
 
 A compiler definitionally gives you a deeper understanding of the behavior of the query than a parser alone. We’re now able to trace the data flows and operations that we were abstractly expressing when we initially wrote our SQL query. The compiler incrementally enriches its understanding of the original SQL string and results in a logical plan, which provides static analysis and validation of your SQL logic.
