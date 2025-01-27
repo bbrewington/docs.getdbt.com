@@ -111,7 +111,7 @@ For example, add the following to your rc file, replacing `<PATH_TO_VIRTUAL_ENV_
 alias env_dbt='source <PATH_TO_VIRTUAL_ENV_CONFIG>/bin/activate'
 ```
 
-### Installing the adapter
+## Installing the adapter
 
 Once you decide [which adapter](/docs/supported-data-platforms) you're using, you can install using the command line. Beginning in v1.8, installing an adapter does not automatically install `dbt-core`. This is because adapters and dbt Core versions have been decoupled from each other so we no longer want to overwrite existing dbt-core installations.
 
@@ -193,7 +193,7 @@ If you're building a tool that integrates with dbt Core, you may want to install
 python -m pip install dbt-core
 ```
 
-### Change dbt Core versions
+## Change dbt Core versions
 
 You can upgrade or downgrade versions of dbt Core by using the `--upgrade` option on the command line (CLI). For more information, see [Best practices for upgrading in Core versions](/docs/dbt-versions/core#best-practices-for-upgrading).
 
@@ -209,7 +209,7 @@ To downgrade to an older version, specify the version you want to use. This comm
 python -m pip install --upgrade dbt-core==0.19.0
 ```
 
-### `pip install dbt`
+## `pip install dbt`
 
 Note that, as of v1.0.0, `pip install dbt` is no longer supported, will raise an explicit error, and the `dbt` package on PyPI stopped receiving updates. Since v0.13, PyPI package named `dbt` was a simple "pass-through" of dbt-core and the four original database adapter plugins.
 
@@ -231,7 +231,7 @@ Or, better yet, just install the package(s) you need!
 
 <VersionBlock firstVersion="1.8">
 
-### Installing prereleases
+## Installing prereleases
 
 A prerelease adapter is a version released before the final, stable version. It allows users to test new features, provide feedback, and get early access to upcoming functionality &mdash; ensuring your system will be ready for the final release.
 
@@ -266,7 +266,7 @@ dbt --version
 ```
 Note, this will also install any pre-releases of all dependencies.
 
-#### Activate your virtual environment 
+### Activate your virtual environment 
 
 To install or use packages within your virtual environment:
 
