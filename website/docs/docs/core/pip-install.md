@@ -20,7 +20,6 @@ Users who want to run dbt locally, for example in [dbt Core](/docs/core/installa
 
 ### Prerequisites
 
-Once you've met the prerequisites, follow these steps to set up your virtual environment.
 
 - Access to a terminal or command prompt.
 - Have [Python](https://www.python.org/downloads/) installed on your machine. You can check if Python is installed by running `python --version` or `python3 --version` in your terminal or command prompt.
