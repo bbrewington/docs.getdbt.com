@@ -46,7 +46,7 @@ This order is now in the "shipped" state, but we've lost the information about w
 
 <VersionBlock firstVersion="1.9">
 
-Configure your snapshots in YAML files to tell dbt how to detect record changes. Define snapshots configurations in YAML files, alongside your models, for a cleaner, faster, and more consistent set up. Snapshot YAML files may be placed in the models directory or in a snapshots directory. 
+Configure your snapshots in YAML files to tell dbt how to detect record changes. Define snapshots configurations in YAML files, alongside your models, for a cleaner, faster, and more consistent set up. Place snapshot YAML files in the models directory or in a snapshots directory. 
 
 <File name='snapshots/orders_snapshot.yml'>
 
